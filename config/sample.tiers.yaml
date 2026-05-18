@@ -1,0 +1,35 @@
+tiers:
+  # These tier ids match the included pear_harikumarigurung_05082025_post.eaf sample.
+  reference: ref@w4r
+  phrase: po@w4r
+  words: wd@w4r
+  morphemes: mb@w4r
+  gloss: ge@w4r
+  translation: ft@w4r
+  metadata:
+    ref_id: ref_id@w4r
+    language: lg@w4r
+    comment: cmt@w4r
+
+render:
+  title: Hari Kumari Gurung Pear Story
+  language: und
+  text_direction: auto
+  theme: light
+  show_timestamps: true
+  audio_links: false
+  collapsible_morphology: false
+  gloss_abbreviations:
+    1SG: first person singular
+    2SG: second person singular
+    3SG: third person singular
+    DIST: distal demonstrative
+    DM: discourse marker
+    LOC: locative
+    GEN: genitive
+    RES: resultative
+    NMLZ: nominalizer
+    PL: plural
+    CVB.SEQ: sequential converb
+    CONT: continuative
+    MIR: mirative

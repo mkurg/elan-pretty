@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="{{ config.render.language }}" dir="{{ config.render.text_direction }}" data-theme="{{ config.render.theme }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="elan-pretty">
+  <title>{{ document.title }}</title>
+  <link rel="stylesheet" href="{{ css_href }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="kicker">Interlinear text</p>
+      <h1>{{ document.title }}</h1>
+      <dl class="document-meta">
+        <div>
+          <dt>Examples</dt>
+          <dd>{{ document.segments | length }}</dd>
+        </div>
+        <div>
+          <dt>Source</dt>
+          <dd>{{ document.source_file }}</dd>
+        </div>
+      </dl>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="toolbar" aria-label="Corpus controls">
+      <label class="search-field">
+        <span>Search</span>
+        <input type="search" data-igt-search>
+      </label>
+      {% if config.render.audio_links and primary_media %}
+      <audio class="audio-player" controls src="{{ primary_media.url or primary_media.relative_url }}"></audio>
+      {% endif %}
+    </section>
+
+    {% if document.warnings %}
+    <details class="warnings">
+      <summary>Warnings</summary>
+      <ul>
+        {% for warning in document.warnings %}
+        <li>{{ warning }}</li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+
+    <article class="igt-document">
+      {% for segment in document.segments %}
+      <section
+        class="igt-example"
+        id="{{ segment.id }}"
+        dir="{{ segment.direction }}"
+        data-start-ms="{{ segment.start_ms if segment.start_ms is not none else '' }}"
+        data-end-ms="{{ segment.end_ms if segment.end_ms is not none else '' }}"
+        data-search="{{ segment.phrase }} {{ segment.translation or '' }} {% for word in segment.words %}{{ word.surface }} {% for morpheme in word.morphemes %}{{ morpheme.form }} {{ morpheme.gloss or '' }} {% endfor %}{% endfor %}"
+      >
+        <header class="example-header">
+          <a class="example-number" href="#{{ segment.id }}">({{ loop.index }})</a>
+          {% if config.render.show_timestamps and segment.start_ms is not none %}
+          <span class="timestamp">
+            {{ segment.start_ms | format_ms }}{% if segment.end_ms is not none %}-{{ segment.end_ms | format_ms }}{% endif %}
+          </span>
+          {% endif %}
+          {% if config.render.audio_links and primary_media and segment.start_ms is not none %}
+          <button class="cue-button" type="button" data-audio-cue="{{ segment.start_ms }}">Play</button>
+          {% endif %}
+          {% for key, value in segment.metadata.items() %}
+          <span class="metadata-chip">{{ key }}: {{ value }}</span>
+          {% endfor %}
+        </header>
+
+        {% if segment.phrase %}
+        <p class="phrase-line">{{ segment.phrase }}</p>
+        {% endif %}
+
+        {% if config.render.collapsible_morphology %}
+        <details class="morphology" open>
+          <summary>Morphology</summary>
+        {% endif %}
+          <div class="igt-words" role="list">
+            {% for word in segment.words %}
+            <div class="igt-word" role="listitem">
+              <div class="word-surface">{{ word.surface }}</div>
+              <div class="morpheme-grid" style="--morph-count: {{ [word.morphemes | length, 1] | max }}">
+                {% for morpheme in word.morphemes %}
+                <span class="morpheme">{{ morpheme.form }}</span>
+                {% endfor %}
+                {% for morpheme in word.morphemes %}
+                <span class="gloss">{{ morpheme.gloss | format_gloss(config.render.gloss_abbreviations) }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        {% if config.render.collapsible_morphology %}
+        </details>
+        {% endif %}
+
+        {% if segment.translation %}
+        <p class="translation">&lsquo;{{ segment.translation }}&rsquo;</p>
+        {% endif %}
+
+        {% if segment.warnings %}
+        <details class="segment-warnings">
+          <summary>Segment warnings</summary>
+          <ul>
+            {% for warning in segment.warnings %}
+            <li>{{ warning }}</li>
+            {% endfor %}
+          </ul>
+        </details>
+        {% endif %}
+      </section>
+      {% endfor %}
+    </article>
+  </main>
+
+  <script>
+    const search = document.querySelector('[data-igt-search]');
+    if (search) {
+      search.addEventListener('input', () => {
+        const query = search.value.trim().toLocaleLowerCase();
+        document.querySelectorAll('.igt-example').forEach((example) => {
+          const haystack = (example.dataset.search || '').toLocaleLowerCase();
+          example.hidden = Boolean(query) && !haystack.includes(query);
+        });
+      });
+    }
+
+    const audio = document.querySelector('.audio-player');
+    if (audio) {
+      document.querySelectorAll('[data-audio-cue]').forEach((button) => {
+        button.addEventListener('click', () => {
+          audio.currentTime = Number(button.dataset.audioCue || 0) / 1000;
+          audio.play();
+        });
+      });
+    }
+  </script>
+</body>
+</html>

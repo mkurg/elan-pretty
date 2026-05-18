@@ -55,7 +55,7 @@
         dir="{{ segment.direction }}"
         data-start-ms="{{ segment.start_ms if segment.start_ms is not none else '' }}"
         data-end-ms="{{ segment.end_ms if segment.end_ms is not none else '' }}"
-        data-search="{{ segment.phrase }} {{ segment.translation or '' }} {% for word in segment.words %}{{ word.surface }} {% for morpheme in word.morphemes %}{{ morpheme.form }} {{ morpheme.gloss or '' }} {% endfor %}{% endfor %}"
+        data-search="{{ segment.phrase }} {{ segment.translation or '' }} {% for word in segment.words %}{{ word.surface }} {% for morpheme in word.morphemes %}{{ morpheme.form }} {{ morpheme.gloss or '' }} {{ morpheme.display_gloss or '' }} {% endfor %}{% endfor %}"
       >
         <header class="example-header">
           <a class="example-number" href="#{{ segment.id }}">({{ loop.index }})</a>
@@ -89,7 +89,7 @@
                 <span class="morpheme">{{ morpheme.form }}</span>
                 {% endfor %}
                 {% for morpheme in word.morphemes %}
-                <span class="gloss">{{ morpheme.gloss | format_gloss(config.render.gloss_abbreviations) }}</span>
+                <span class="gloss">{{ morpheme.display_gloss | format_gloss(config.render.gloss_abbreviations) }}</span>
                 {% endfor %}
               </div>
             </div>

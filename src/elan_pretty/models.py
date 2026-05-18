@@ -6,6 +6,8 @@ from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field, computed_field, field_validator, model_validator
 
+from elan_pretty.utils import mirror_gloss_boundaries
+
 
 class TextDirection(str, Enum):
     auto = "auto"
@@ -42,6 +44,11 @@ class Morpheme(BaseModel):
         if value is None:
             return value
         return str(value)
+
+    @computed_field
+    @property
+    def display_gloss(self) -> str | None:
+        return mirror_gloss_boundaries(self.form, self.gloss)
 
 
 class Word(BaseModel):

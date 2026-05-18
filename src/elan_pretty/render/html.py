@@ -66,7 +66,7 @@ class HTMLRenderer:
             if not part:
                 continue
             if self._is_abbreviation(part):
-                title = abbreviations.get(part.strip(".,;:()[]{}"))
+                title = abbreviations.get(part.strip(".,;:()[]{}-="))
                 title_attr = f' title="{escape(title)}"' if title else ""
                 rendered.append(
                     f'<span class="gloss-abbr"{title_attr}>{escape(part)}</span>'

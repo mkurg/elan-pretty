@@ -39,3 +39,21 @@ def test_normalizes_eaf_to_interlinear_segments() -> None:
     assert [word.surface for word in segment.words] == ["tsa", "mi"]
     assert segment.words[0].morphemes[0].gloss == "DIST"
     assert segment.words[1].morphemes[0].gloss == "man"
+
+
+def test_display_gloss_mirrors_leipzig_boundaries() -> None:
+    from elan_pretty.models import Morpheme
+
+    assert Morpheme(form="-mae", gloss="PL").display_gloss == "-PL"
+    assert Morpheme(form="=r", gloss="LOC").display_gloss == "=LOC"
+    assert Morpheme(form="pre-", gloss="NEG").display_gloss == "NEG-"
+    assert Morpheme(form="-mae", gloss="-PL").display_gloss == "-PL"
+
+
+def test_gloss_tooltips_ignore_boundary_markers() -> None:
+    from elan_pretty.render.html import HTMLRenderer
+
+    rendered = HTMLRenderer()._format_gloss("=LOC -PL", {"LOC": "locative", "PL": "plural"})
+
+    assert 'title="locative"' in rendered
+    assert 'title="plural"' in rendered

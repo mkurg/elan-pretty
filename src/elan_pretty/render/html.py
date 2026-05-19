@@ -13,6 +13,8 @@ from elan_pretty.utils import format_ms, safe_slug
 
 
 ABBREVIATION_TOKEN = re.compile(r"(\S+)")
+BOUNDARY_SPLIT = re.compile(r"([-=])")
+GLOSS_PUNCTUATION = ".,;:()[]{}<>"
 
 
 class HTMLRenderer:
@@ -65,15 +67,28 @@ class HTMLRenderer:
         for part in ABBREVIATION_TOKEN.split(value):
             if not part:
                 continue
-            if self._is_abbreviation(part):
-                title = abbreviations.get(part.strip(".,;:()[]{}-="))
+            rendered.append(self._format_gloss_token(part, abbreviations))
+        return Markup("".join(rendered))
+
+    def _format_gloss_token(self, token: str, abbreviations: dict[str, str]) -> str:
+        rendered: list[str] = []
+        for piece in BOUNDARY_SPLIT.split(token):
+            if not piece:
+                continue
+            if piece in {"-", "="}:
+                rendered.append(str(escape(piece)))
+                continue
+
+            lookup_key = piece.strip(GLOSS_PUNCTUATION)
+            if self._is_abbreviation(lookup_key):
+                title = abbreviations.get(lookup_key)
                 title_attr = f' title="{escape(title)}"' if title else ""
                 rendered.append(
-                    f'<span class="gloss-abbr"{title_attr}>{escape(part)}</span>'
+                    f'<span class="gloss-abbr"{title_attr}>{escape(piece)}</span>'
                 )
             else:
-                rendered.append(str(escape(part)))
-        return Markup("".join(rendered))
+                rendered.append(str(escape(piece)))
+        return "".join(rendered)
 
     def _is_abbreviation(self, token: str) -> bool:
         letters = [char for char in token if char.isalpha()]

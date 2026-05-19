@@ -42,18 +42,28 @@ def test_normalizes_eaf_to_interlinear_segments() -> None:
 
 
 def test_display_gloss_mirrors_leipzig_boundaries() -> None:
-    from elan_pretty.models import Morpheme
+    from elan_pretty.models import Morpheme, Word
 
     assert Morpheme(form="-mae", gloss="PL").display_gloss == "-PL"
     assert Morpheme(form="=r", gloss="LOC").display_gloss == "=LOC"
     assert Morpheme(form="pre-", gloss="NEG").display_gloss == "NEG-"
     assert Morpheme(form="-mae", gloss="-PL").display_gloss == "-PL"
 
+    word = Word(
+        surface="mumae",
+        morphemes=[Morpheme(form="mu", gloss="be"), Morpheme(form="-mae", gloss="PL")],
+    )
+    assert word.morpheme_line == "mu-mae"
+    assert word.gloss_line == "be-PL"
+
 
 def test_gloss_tooltips_ignore_boundary_markers() -> None:
     from elan_pretty.render.html import HTMLRenderer
 
-    rendered = HTMLRenderer()._format_gloss("=LOC -PL", {"LOC": "locative", "PL": "plural"})
+    rendered = HTMLRenderer()._format_gloss(
+        "tree=LOC be-PL NEG-", {"LOC": "locative", "PL": "plural", "NEG": "negative"}
+    )
 
     assert 'title="locative"' in rendered
     assert 'title="plural"' in rendered
+    assert 'title="negative"' in rendered

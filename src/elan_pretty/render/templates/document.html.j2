@@ -55,7 +55,7 @@
         dir="{{ segment.direction }}"
         data-start-ms="{{ segment.start_ms if segment.start_ms is not none else '' }}"
         data-end-ms="{{ segment.end_ms if segment.end_ms is not none else '' }}"
-        data-search="{{ segment.phrase }} {{ segment.translation or '' }} {% for word in segment.words %}{{ word.surface }} {% for morpheme in word.morphemes %}{{ morpheme.form }} {{ morpheme.gloss or '' }} {{ morpheme.display_gloss or '' }} {% endfor %}{% endfor %}"
+        data-search="{{ segment.phrase }} {{ segment.translation or '' }} {% for word in segment.words %}{{ word.surface }} {{ word.morpheme_line }} {{ word.gloss_line }} {% for morpheme in word.morphemes %}{{ morpheme.form }} {{ morpheme.gloss or '' }} {{ morpheme.display_gloss or '' }} {% endfor %}{% endfor %}"
       >
         <header class="example-header">
           <a class="example-number" href="#{{ segment.id }}">({{ loop.index }})</a>
@@ -84,14 +84,8 @@
             {% for word in segment.words %}
             <div class="igt-word" role="listitem">
               <div class="word-surface">{{ word.surface }}</div>
-              <div class="morpheme-grid" style="--morph-count: {{ [word.morphemes | length, 1] | max }}">
-                {% for morpheme in word.morphemes %}
-                <span class="morpheme">{{ morpheme.form }}</span>
-                {% endfor %}
-                {% for morpheme in word.morphemes %}
-                <span class="gloss">{{ morpheme.display_gloss | format_gloss(config.render.gloss_abbreviations) }}</span>
-                {% endfor %}
-              </div>
+              <div class="morpheme">{{ word.morpheme_line }}</div>
+              <div class="gloss">{{ word.gloss_line | format_gloss(config.render.gloss_abbreviations) }}</div>
             </div>
             {% endfor %}
           </div>

@@ -56,6 +56,18 @@ class Word(BaseModel):
     surface: str
     morphemes: list[Morpheme] = Field(default_factory=list)
 
+    @computed_field
+    @property
+    def morpheme_line(self) -> str:
+        if not self.morphemes:
+            return self.surface
+        return "".join(morpheme.form for morpheme in self.morphemes)
+
+    @computed_field
+    @property
+    def gloss_line(self) -> str:
+        return "".join(morpheme.display_gloss or "" for morpheme in self.morphemes)
+
 
 class Segment(BaseModel):
     model_config = ConfigDict(use_enum_values=True)

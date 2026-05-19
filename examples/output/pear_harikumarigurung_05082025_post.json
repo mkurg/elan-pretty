@@ -2,7 +2,7 @@
   "id": "pear_harikumarigurung_05082025_post",
   "title": "Hari Kumari Gurung Pear Story",
   "source_file": "pear_harikumarigurung_05082025_post.eaf",
-  "generated_at": "2026-05-18T19:35:19.357237Z",
+  "generated_at": "2026-05-19T06:57:26.700971Z",
   "media": [
     {
       "url": "file:///C:/Users/Sofya/Desktop/Ergativity/Pear stories/HariKumariGurung/pear_harikumarigurung_05082025_post.wav",
@@ -222,7 +222,9 @@
               "gloss": "HESIT",
               "display_gloss": "HESIT"
             }
-          ]
+          ],
+          "morpheme_line": "toraa",
+          "gloss_line": "HESIT"
         },
         {
           "id": "a3189",
@@ -235,7 +237,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a3190",
@@ -248,7 +252,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a3191",
@@ -268,7 +274,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "mu-mae",
+          "gloss_line": "be-PL"
         },
         {
           "id": "a3192",
@@ -281,7 +289,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wa",
+          "gloss_line": "DM"
         },
         {
           "id": "a3193",
@@ -294,7 +304,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a3194",
@@ -307,7 +319,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a3195",
@@ -320,7 +334,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         }
       ],
       "translation": "Hmm, there was a man, and this man...",
@@ -355,7 +371,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "sĩdũtũ=r",
+          "gloss_line": "tree=LOC"
         },
         {
           "id": "a2764",
@@ -368,7 +386,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2765",
@@ -388,7 +408,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "phalphul=a",
+          "gloss_line": "fruit=GEN"
         },
         {
           "id": "a2766",
@@ -408,7 +430,9 @@
               "gloss": "RES",
               "display_gloss": "=RES"
             }
-          ]
+          ],
+          "morpheme_line": "avokado=do",
+          "gloss_line": "avocado=RES"
         },
         {
           "id": "a2767",
@@ -428,7 +452,9 @@
               "gloss": "NMLZ",
               "display_gloss": "-NMLZ"
             }
-          ]
+          ],
+          "morpheme_line": "ta-ba",
+          "gloss_line": "become-NMLZ"
         },
         {
           "id": "a2768",
@@ -448,7 +474,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "mu-mae",
+          "gloss_line": "be-PL"
         },
         {
           "id": "a2769",
@@ -461,7 +489,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "ke",
+          "gloss_line": "DM"
         }
       ],
       "translation": "In the tree, there was fruit like avocado",
@@ -489,7 +519,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2771",
@@ -516,7 +548,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-ri-mae",
+          "gloss_line": "pluck-CONT-MIR"
         },
         {
           "id": "a2772",
@@ -529,7 +563,9 @@
               "gloss": "and.then",
               "display_gloss": "and.then"
             }
-          ]
+          ],
+          "morpheme_line": "ani",
+          "gloss_line": "and.then"
         },
         {
           "id": "a2773",
@@ -542,7 +578,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2774",
@@ -562,7 +600,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-irõno",
+          "gloss_line": "pluck-CVB.SEQ"
         },
         {
           "id": "a2775",
@@ -575,7 +615,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "tsai",
+          "gloss_line": "DM"
         },
         {
           "id": "a2776",
@@ -588,7 +630,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a2777",
@@ -608,7 +652,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-irõ",
+          "gloss_line": "pluck-CVB.SEQ"
         },
         {
           "id": "a2778",
@@ -621,7 +667,9 @@
               "gloss": "again",
               "display_gloss": "again"
             }
-          ]
+          ],
+          "morpheme_line": "pheri",
+          "gloss_line": "again"
         },
         {
           "id": "a2779",
@@ -634,7 +682,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2780",
@@ -647,7 +697,9 @@
               "gloss": "very.small",
               "display_gloss": "very.small"
             }
-          ]
+          ],
+          "morpheme_line": "tsutiri",
+          "gloss_line": "very.small"
         },
         {
           "id": "a2781",
@@ -667,7 +719,9 @@
               "gloss": "UNCERT",
               "display_gloss": "=UNCERT"
             }
-          ]
+          ],
+          "morpheme_line": "to=ngye",
+          "gloss_line": "what=UNCERT"
         },
         {
           "id": "a2782",
@@ -680,7 +734,9 @@
               "gloss": "bamboo.basket",
               "display_gloss": "bamboo.basket"
             }
-          ]
+          ],
+          "morpheme_line": "tõbiõ",
+          "gloss_line": "bamboo.basket"
         },
         {
           "id": "a2783",
@@ -700,7 +756,9 @@
               "gloss": "NMLZ",
               "display_gloss": "-NMLZ"
             }
-          ]
+          ],
+          "morpheme_line": "ta-ba",
+          "gloss_line": "become-NMLZ"
         },
         {
           "id": "a2784",
@@ -713,7 +771,9 @@
               "gloss": "thing",
               "display_gloss": "thing"
             }
-          ]
+          ],
+          "morpheme_line": "mala",
+          "gloss_line": "thing"
         },
         {
           "id": "a2785",
@@ -733,7 +793,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "mu-mae",
+          "gloss_line": "be-PL"
         },
         {
           "id": "a2786",
@@ -746,7 +808,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "ke",
+          "gloss_line": "DM"
         }
       ],
       "translation": "Plucked it, plucked it, plucked it down, there was a very small, what, something like bamboo basket",
@@ -774,7 +838,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2788",
@@ -787,7 +853,9 @@
               "gloss": "full",
               "display_gloss": "full"
             }
-          ]
+          ],
+          "morpheme_line": "tibo",
+          "gloss_line": "full"
         },
         {
           "id": "a2789",
@@ -807,7 +875,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "la-irõ",
+          "gloss_line": "do-CVB.SEQ"
         },
         {
           "id": "a2790",
@@ -827,7 +897,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-mmae",
+          "gloss_line": "pluck-MIR"
         },
         {
           "id": "a2791",
@@ -840,7 +912,9 @@
               "gloss": "and.then",
               "display_gloss": "and.then"
             }
-          ]
+          ],
+          "morpheme_line": "ani",
+          "gloss_line": "and.then"
         }
       ],
       "translation": "Plucked it full and",
@@ -868,7 +942,9 @@
               "gloss": "again",
               "display_gloss": "again"
             }
-          ]
+          ],
+          "morpheme_line": "pheri",
+          "gloss_line": "again"
         },
         {
           "id": "a2793",
@@ -881,7 +957,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a2794",
@@ -901,7 +979,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "yu-m",
+          "gloss_line": "descend-NPST"
         },
         {
           "id": "a2795",
@@ -914,7 +994,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõr",
+          "gloss_line": "while"
         },
         {
           "id": "a2796",
@@ -934,7 +1016,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "DIST=LOC"
         },
         {
           "id": "a2797",
@@ -954,7 +1038,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-mo",
+          "gloss_line": "pluck-NPST"
         },
         {
           "id": "a2798",
@@ -967,7 +1053,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõr",
+          "gloss_line": "while"
         },
         {
           "id": "a2799",
@@ -980,7 +1068,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a2800",
@@ -993,7 +1083,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a2801",
@@ -1013,7 +1105,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "sa=r",
+          "gloss_line": "ground=LOC"
         },
         {
           "id": "a2802",
@@ -1033,7 +1127,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "ti-amae",
+          "gloss_line": "fall-MIR"
         }
       ],
       "translation": "While coming down again, while plucking there, one fell down on the ground",
@@ -1061,7 +1157,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2804",
@@ -1081,7 +1179,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "sa=r",
+          "gloss_line": "ground=LOC"
         },
         {
           "id": "a2805",
@@ -1101,7 +1201,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "ti-uni",
+          "gloss_line": "fall-CVB.SIM"
         },
         {
           "id": "a2806",
@@ -1114,7 +1216,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2807",
@@ -1134,7 +1238,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "the=a",
+          "gloss_line": "3.EMPH=GEN"
         },
         {
           "id": "a2808",
@@ -1154,7 +1260,9 @@
               "gloss": "GEN.LOC",
               "display_gloss": "=GEN.LOC"
             }
-          ]
+          ],
+          "morpheme_line": "khari=rba",
+          "gloss_line": "neck=GEN.LOC"
         },
         {
           "id": "a2809",
@@ -1167,7 +1275,9 @@
               "gloss": "handkerchief",
               "display_gloss": "handkerchief"
             }
-          ]
+          ],
+          "morpheme_line": "rumala",
+          "gloss_line": "handkerchief"
         }
       ],
       "translation": "Fell on the ground, and handkerchief of his neck...",
@@ -1195,7 +1305,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a2811",
@@ -1208,7 +1320,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "plisi",
+          "gloss_line": ""
         },
         {
           "id": "a2812",
@@ -1221,7 +1335,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2813",
@@ -1234,7 +1350,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "tsai",
+          "gloss_line": "DM"
         },
         {
           "id": "a2814",
@@ -1247,7 +1365,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "pustĩro",
+          "gloss_line": "***"
         },
         {
           "id": "a2815",
@@ -1267,7 +1387,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "DIST=LOC"
         },
         {
           "id": "a2816",
@@ -1287,7 +1409,9 @@
               "gloss": "DIR",
               "display_gloss": "-DIR"
             }
-          ]
+          ],
+          "morpheme_line": "thĩ-syõ",
+          "gloss_line": "***-DIR"
         },
         {
           "id": "a2817",
@@ -1300,7 +1424,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "ke",
+          "gloss_line": "DM"
         }
       ],
       "translation": "Untied it, wiped with it; put there",
@@ -1328,7 +1454,9 @@
               "gloss": "from.there",
               "display_gloss": "from.there"
             }
-          ]
+          ],
+          "morpheme_line": "hai",
+          "gloss_line": "from.there"
         },
         {
           "id": "a2819",
@@ -1348,7 +1476,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "thĩ-mo",
+          "gloss_line": "***-NPST"
         },
         {
           "id": "a2820",
@@ -1361,7 +1491,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tsakya",
+          "gloss_line": ""
         },
         {
           "id": "a2821",
@@ -1374,7 +1506,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2822",
@@ -1394,7 +1528,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "ra=a",
+          "gloss_line": "goat=GEN"
         },
         {
           "id": "a2823",
@@ -1414,7 +1550,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "awodza-wae",
+          "gloss_line": "sound-PL"
         },
         {
           "id": "a2824",
@@ -1434,7 +1572,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "kha-imo",
+          "gloss_line": "come-NPST"
         },
         {
           "id": "a2825",
@@ -1447,7 +1587,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2826",
@@ -1460,7 +1602,9 @@
               "gloss": "goat",
               "display_gloss": "goat"
             }
-          ]
+          ],
+          "morpheme_line": "ra",
+          "gloss_line": "goat"
         },
         {
           "id": "a2827",
@@ -1480,7 +1624,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ngye-mo",
+          "gloss_line": "make.animal.sound-NPST"
         }
       ],
       "translation": "Put and then sounds of goat came, this goat is bleating",
@@ -1508,7 +1654,9 @@
               "gloss": "and.then",
               "display_gloss": "and.then"
             }
-          ]
+          ],
+          "morpheme_line": "ani",
+          "gloss_line": "and.then"
         },
         {
           "id": "a2829",
@@ -1521,7 +1669,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a2830",
@@ -1534,7 +1684,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a2831",
@@ -1547,7 +1699,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2832",
@@ -1560,7 +1714,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2833",
@@ -1573,7 +1729,9 @@
               "gloss": "goat",
               "display_gloss": "goat"
             }
-          ]
+          ],
+          "morpheme_line": "ra",
+          "gloss_line": "goat"
         },
         {
           "id": "a2834",
@@ -1600,7 +1758,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "tsãĩbo-dzi",
+          "gloss_line": "pull***-PFV"
         },
         {
           "id": "a2835",
@@ -1620,7 +1780,9 @@
               "gloss": "DIR",
               "display_gloss": "-DIR"
             }
-          ]
+          ],
+          "morpheme_line": "ya-syõ",
+          "gloss_line": "go-DIR"
         },
         {
           "id": "a2836",
@@ -1633,7 +1795,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2837",
@@ -1646,7 +1810,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wa",
+          "gloss_line": "DM"
         }
       ],
       "translation": "And a man is going pulling this goat",
@@ -1674,7 +1840,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2839",
@@ -1687,7 +1855,9 @@
               "gloss": "goat",
               "display_gloss": "goat"
             }
-          ]
+          ],
+          "morpheme_line": "ra",
+          "gloss_line": "goat"
         },
         {
           "id": "a2840",
@@ -1714,7 +1884,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "tsãĩbo-dzi",
+          "gloss_line": "pull***-PFV"
         },
         {
           "id": "a2841",
@@ -1734,7 +1906,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ya-mo",
+          "gloss_line": "go-NPST"
         },
         {
           "id": "a2842",
@@ -1747,7 +1921,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2843",
@@ -1767,7 +1943,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "mi=yi",
+          "gloss_line": "man=ERG"
         },
         {
           "id": "a2844",
@@ -1780,7 +1958,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2845",
@@ -1800,7 +1980,9 @@
               "gloss": "GEN.LOC",
               "display_gloss": "=GEN.LOC"
             }
-          ]
+          ],
+          "morpheme_line": "sĩdũtũ=rba",
+          "gloss_line": "tree=GEN.LOC"
         },
         {
           "id": "a2846",
@@ -1813,7 +1995,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2847",
@@ -1826,7 +2010,9 @@
               "gloss": "avocado",
               "display_gloss": "avocado"
             }
-          ]
+          ],
+          "morpheme_line": "avokado",
+          "gloss_line": "avocado"
         },
         {
           "id": "a2848",
@@ -1846,7 +2032,9 @@
               "gloss": "PROG",
               "display_gloss": "-PROG"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-simo",
+          "gloss_line": "pluck-PROG"
         }
       ],
       "translation": "Goes pulling this goat, this man is plucking avocado of the tree",
@@ -1874,7 +2062,9 @@
               "gloss": "another",
               "display_gloss": "another"
             }
-          ]
+          ],
+          "morpheme_line": "arko",
+          "gloss_line": "another"
         },
         {
           "id": "a2850",
@@ -1887,7 +2077,9 @@
               "gloss": "child",
               "display_gloss": "child"
             }
-          ]
+          ],
+          "morpheme_line": "kolo",
+          "gloss_line": "child"
         },
         {
           "id": "a2851",
@@ -1900,7 +2092,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a2852",
@@ -1920,7 +2114,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "kha-mmae",
+          "gloss_line": "come-MIR"
         },
         {
           "id": "a2853",
@@ -1933,7 +2129,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2854",
@@ -1946,7 +2144,9 @@
               "gloss": "child",
               "display_gloss": "child"
             }
-          ]
+          ],
+          "morpheme_line": "kolo",
+          "gloss_line": "child"
         },
         {
           "id": "a2855",
@@ -1959,7 +2159,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a2856",
@@ -1972,7 +2174,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2857",
@@ -1985,7 +2189,9 @@
               "gloss": "again",
               "display_gloss": "again"
             }
-          ]
+          ],
+          "morpheme_line": "pheri",
+          "gloss_line": "again"
         },
         {
           "id": "a2858",
@@ -2005,7 +2211,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "saikala=r",
+          "gloss_line": "bicycle=LOC"
         }
       ],
       "translation": "Another boy comes, this boy on a bicycle",
@@ -2040,7 +2248,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "saikala=r",
+          "gloss_line": "bicycle=LOC"
         },
         {
           "id": "a2860",
@@ -2053,7 +2263,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2861",
@@ -2066,7 +2278,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2862",
@@ -2079,7 +2293,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a2863",
@@ -2092,7 +2308,9 @@
               "gloss": "up",
               "display_gloss": "up"
             }
-          ]
+          ],
+          "morpheme_line": "tu",
+          "gloss_line": "up"
         },
         {
           "id": "a2864",
@@ -2112,7 +2330,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "mu=r",
+          "gloss_line": "sky=LOC"
         },
         {
           "id": "a2865",
@@ -2139,7 +2359,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-ri-mo",
+          "gloss_line": "pluck-CONT-NPST"
         },
         {
           "id": "a2866",
@@ -2152,7 +2374,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         },
         {
           "id": "a2867",
@@ -2165,7 +2389,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "tsai",
+          "gloss_line": "DM"
         },
         {
           "id": "a2868",
@@ -2178,7 +2404,9 @@
               "gloss": "avocado",
               "display_gloss": "avocado"
             }
-          ]
+          ],
+          "morpheme_line": "avokado",
+          "gloss_line": "avocado"
         },
         {
           "id": "a2869",
@@ -2191,7 +2419,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "On a bicycle, and while this man up there is plucking, he this avocado...",
@@ -2226,7 +2456,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "the=a",
+          "gloss_line": "3.EMPH=GEN"
         },
         {
           "id": "a2871",
@@ -2239,7 +2471,9 @@
               "gloss": "bicycle",
               "display_gloss": "bicycle"
             }
-          ]
+          ],
+          "morpheme_line": "saikala",
+          "gloss_line": "bicycle"
         },
         {
           "id": "a2872",
@@ -2252,7 +2486,9 @@
               "gloss": "in.front",
               "display_gloss": "in.front"
             }
-          ]
+          ],
+          "morpheme_line": "agadi",
+          "gloss_line": "in.front"
         },
         {
           "id": "a2873",
@@ -2265,7 +2501,9 @@
               "gloss": "HESIT",
               "display_gloss": "HESIT"
             }
-          ]
+          ],
+          "morpheme_line": "tora",
+          "gloss_line": "HESIT"
         },
         {
           "id": "a2874",
@@ -2285,7 +2523,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "thĩ-mmae",
+          "gloss_line": "***-MIR"
         }
       ],
       "translation": "puts in front of his bicycle",
@@ -2320,7 +2560,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "DIST=LOC"
         },
         {
           "id": "a2876",
@@ -2340,7 +2582,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "thĩ-irõno",
+          "gloss_line": "***-CVB.SEQ"
         },
         {
           "id": "a2877",
@@ -2353,7 +2597,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2878",
@@ -2373,7 +2619,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "bo-mmae",
+          "gloss_line": "bring-MIR"
         },
         {
           "id": "a2879",
@@ -2393,7 +2641,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "bo-dzi",
+          "gloss_line": "bring-PFV"
         },
         {
           "id": "a2880",
@@ -2413,7 +2663,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ya-mo",
+          "gloss_line": "go-NPST"
         },
         {
           "id": "a2881",
@@ -2426,7 +2678,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         }
       ],
       "translation": "Put there, while he carries (away) and goes...",
@@ -2454,7 +2708,9 @@
               "gloss": "there",
               "display_gloss": "there"
             }
-          ]
+          ],
+          "morpheme_line": "kitsai",
+          "gloss_line": "there"
         },
         {
           "id": "a2883",
@@ -2467,7 +2723,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a2884",
@@ -2480,7 +2738,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a2885",
@@ -2493,7 +2753,9 @@
               "gloss": "woman",
               "display_gloss": "woman"
             }
-          ]
+          ],
+          "morpheme_line": "rimae",
+          "gloss_line": "woman"
         },
         {
           "id": "a2886",
@@ -2506,7 +2768,9 @@
               "gloss": "bicycle",
               "display_gloss": "bicycle"
             }
-          ]
+          ],
+          "morpheme_line": "saikala",
+          "gloss_line": "bicycle"
         },
         {
           "id": "a2887",
@@ -2519,7 +2783,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2888",
@@ -2539,7 +2805,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "kha-mmae",
+          "gloss_line": "come-MIR"
         },
         {
           "id": "a2889",
@@ -2552,7 +2820,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wa",
+          "gloss_line": "DM"
         }
       ],
       "translation": "From there a girl riding a bicycle is coming",
@@ -2580,7 +2850,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2891",
@@ -2593,7 +2865,9 @@
               "gloss": "bicycle",
               "display_gloss": "bicycle"
             }
-          ]
+          ],
+          "morpheme_line": "saikala",
+          "gloss_line": "bicycle"
         },
         {
           "id": "a2892",
@@ -2606,7 +2880,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2893",
@@ -2626,7 +2902,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "kha-mo",
+          "gloss_line": "come-NPST"
         },
         {
           "id": "a2894",
@@ -2639,7 +2917,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         },
         {
           "id": "a2895",
@@ -2652,7 +2932,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2896",
@@ -2665,7 +2947,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "ri-",
+          "gloss_line": ""
         },
         {
           "id": "a2897",
@@ -2678,7 +2962,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "While coming driving this bicycle...",
@@ -2713,7 +2999,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "the=a",
+          "gloss_line": "3.EMPH=GEN"
         },
         {
           "id": "a2899",
@@ -2733,7 +3021,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "kyaa=r",
+          "gloss_line": "road=LOC"
         },
         {
           "id": "a2900",
@@ -2760,7 +3050,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "a-ngi-ni",
+          "gloss_line": "NEG-look-CVB.SIM"
         },
         {
           "id": "a2901",
@@ -2773,7 +3065,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "?",
+          "gloss_line": ""
         },
         {
           "id": "a2902",
@@ -2786,7 +3080,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2903",
@@ -2806,7 +3102,9 @@
               "gloss": "INDEF",
               "display_gloss": "=INDEF"
             }
-          ]
+          ],
+          "morpheme_line": "rimae=ri",
+          "gloss_line": "woman=INDEF"
         },
         {
           "id": "a2904",
@@ -2826,7 +3124,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ngi-mo",
+          "gloss_line": "look-NPST"
         },
         {
           "id": "a2905",
@@ -2839,7 +3139,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         },
         {
           "id": "a2906",
@@ -2852,7 +3154,9 @@
               "gloss": "stone",
               "display_gloss": "stone"
             }
-          ]
+          ],
+          "morpheme_line": "yuma",
+          "gloss_line": "stone"
         },
         {
           "id": "a2907",
@@ -2865,7 +3169,9 @@
               "gloss": "small",
               "display_gloss": "small"
             }
-          ]
+          ],
+          "morpheme_line": "wutheri",
+          "gloss_line": "small"
         },
         {
           "id": "a2908",
@@ -2885,7 +3191,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "mu-mae",
+          "gloss_line": "be-PL"
         }
       ],
       "translation": "Not looking on his way, while looking at a girl, there was a small stone",
@@ -2913,7 +3221,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2910",
@@ -2933,7 +3243,9 @@
               "gloss": "INDEF",
               "display_gloss": "=INDEF"
             }
-          ]
+          ],
+          "morpheme_line": "yuma=ri",
+          "gloss_line": "stone=INDEF"
         },
         {
           "id": "a2911",
@@ -2953,7 +3265,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "kutura-irõno",
+          "gloss_line": "collide-CVB.SEQ"
         },
         {
           "id": "a2912",
@@ -2966,7 +3280,9 @@
               "gloss": "both",
               "display_gloss": "both"
             }
-          ]
+          ],
+          "morpheme_line": "tsaungi",
+          "gloss_line": "both"
         },
         {
           "id": "a2913",
@@ -2979,7 +3295,9 @@
               "gloss": "and",
               "display_gloss": "and"
             }
-          ]
+          ],
+          "morpheme_line": "de",
+          "gloss_line": "and"
         },
         {
           "id": "a2914",
@@ -2999,7 +3317,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "DIST=LOC"
         }
       ],
       "translation": "Collide on this stone, and they both there...",
@@ -3027,7 +3347,9 @@
               "gloss": "child",
               "display_gloss": "child"
             }
-          ]
+          ],
+          "morpheme_line": "kolo",
+          "gloss_line": "child"
         },
         {
           "id": "a2916",
@@ -3047,7 +3369,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "laphlia-mae",
+          "gloss_line": "fall-PL"
         },
         {
           "id": "a2917",
@@ -3060,7 +3384,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wa",
+          "gloss_line": "DM"
         },
         {
           "id": "a2918",
@@ -3080,7 +3406,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "laphlia-uni",
+          "gloss_line": "fall-CVB.SIM"
         },
         {
           "id": "a2919",
@@ -3093,7 +3421,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         }
       ],
       "translation": "The boy fell down, fell down and...",
@@ -3128,7 +3458,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "DIST=LOC"
         },
         {
           "id": "a2921",
@@ -3148,7 +3480,9 @@
               "gloss": "UNCERT",
               "display_gloss": "=UNCERT"
             }
-          ]
+          ],
+          "morpheme_line": "to=ngye",
+          "gloss_line": "what=UNCERT"
         },
         {
           "id": "a2922",
@@ -3161,7 +3495,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "oo",
+          "gloss_line": ""
         },
         {
           "id": "a2923",
@@ -3174,7 +3510,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2924",
@@ -3187,7 +3525,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "oo",
+          "gloss_line": "***"
         },
         {
           "id": "a2925",
@@ -3200,7 +3540,9 @@
               "gloss": "very.small",
               "display_gloss": "very.small"
             }
-          ]
+          ],
+          "morpheme_line": "tsutiri",
+          "gloss_line": "very.small"
         },
         {
           "id": "a2926",
@@ -3213,7 +3555,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "There, what, hmm, a small...",
@@ -3241,7 +3585,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2928",
@@ -3254,7 +3600,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "klõgudi",
+          "gloss_line": ""
         },
         {
           "id": "a2929",
@@ -3267,7 +3615,9 @@
               "gloss": "game",
               "display_gloss": "game"
             }
-          ]
+          ],
+          "morpheme_line": "gem",
+          "gloss_line": "game"
         },
         {
           "id": "a2930",
@@ -3287,7 +3637,9 @@
               "gloss": "NMLZ",
               "display_gloss": "-NMLZ"
             }
-          ]
+          ],
+          "morpheme_line": "klõ-ba",
+          "gloss_line": "play-NMLZ"
         },
         {
           "id": "a2931",
@@ -3300,7 +3652,9 @@
               "gloss": "thing",
               "display_gloss": "thing"
             }
-          ]
+          ],
+          "morpheme_line": "mala",
+          "gloss_line": "thing"
         },
         {
           "id": "a2932",
@@ -3313,7 +3667,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "Played like this game-playing things...",
@@ -3341,7 +3697,9 @@
               "gloss": "small",
               "display_gloss": "small"
             }
-          ]
+          ],
+          "morpheme_line": "wuthiri",
+          "gloss_line": "small"
         },
         {
           "id": "a2934",
@@ -3354,7 +3712,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "bol",
+          "gloss_line": ""
         },
         {
           "id": "a2935",
@@ -3367,7 +3727,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tingo",
+          "gloss_line": ""
         },
         {
           "id": "a2936",
@@ -3387,7 +3749,9 @@
               "gloss": "RES",
               "display_gloss": "=RES"
             }
-          ]
+          ],
+          "morpheme_line": "paniũ=do",
+          "gloss_line": "kitchen.utensil=RES"
         },
         {
           "id": "a2937",
@@ -3407,7 +3771,9 @@
               "gloss": "NMLZ",
               "display_gloss": "-NMLZ"
             }
-          ]
+          ],
+          "morpheme_line": "ta-ba",
+          "gloss_line": "become-NMLZ"
         },
         {
           "id": "a2938",
@@ -3420,7 +3786,9 @@
               "gloss": "what",
               "display_gloss": "what"
             }
-          ]
+          ],
+          "morpheme_line": "to",
+          "gloss_line": "what"
         },
         {
           "id": "a2939",
@@ -3440,7 +3808,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "bi-ura",
+          "gloss_line": "say-CVB.SEQ"
         },
         {
           "id": "a2940",
@@ -3453,7 +3823,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "It was a small ball, somehting like kitchen utensil, how to say...",
@@ -3481,7 +3853,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2942",
@@ -3494,7 +3868,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2943",
@@ -3507,7 +3883,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2944",
@@ -3534,7 +3912,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "klõ-ri-mae",
+          "gloss_line": "play-CONT-MIR"
         }
       ],
       "translation": "Were playing like this",
@@ -3569,7 +3949,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-mae",
+          "gloss_line": "DIST-PL"
         },
         {
           "id": "a2946",
@@ -3582,7 +3964,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2947",
@@ -3602,7 +3986,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "kyaa=r",
+          "gloss_line": "road=LOC"
         },
         {
           "id": "a2948",
@@ -3629,7 +4015,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "klõ-ri-mae",
+          "gloss_line": "play-CONT-MIR"
         }
       ],
       "translation": "They were playing on the road",
@@ -3657,7 +4045,9 @@
               "gloss": "three",
               "display_gloss": "three"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ",
+          "gloss_line": "three"
         },
         {
           "id": "a2950",
@@ -3670,7 +4060,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a2951",
@@ -3683,7 +4075,9 @@
               "gloss": "three",
               "display_gloss": "three"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ",
+          "gloss_line": "three"
         },
         {
           "id": "a2952",
@@ -3703,7 +4097,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "DIST=LOC"
         },
         {
           "id": "a2953",
@@ -3730,7 +4126,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "klõ-ri-mae",
+          "gloss_line": "play-CONT-MIR"
         }
       ],
       "translation": "Three, three men were playing there",
@@ -3758,7 +4156,9 @@
               "gloss": "from.there",
               "display_gloss": "from.there"
             }
-          ]
+          ],
+          "morpheme_line": "hai",
+          "gloss_line": "from.there"
         },
         {
           "id": "a2955",
@@ -3771,7 +4171,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2956",
@@ -3798,7 +4200,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "klõ-ri-uni",
+          "gloss_line": "play-CONT-CVB.SIM"
         },
         {
           "id": "a2957",
@@ -3811,7 +4215,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a2958",
@@ -3824,7 +4230,9 @@
               "gloss": "HESIT",
               "display_gloss": "HESIT"
             }
-          ]
+          ],
+          "morpheme_line": "tora",
+          "gloss_line": "HESIT"
         },
         {
           "id": "a2959",
@@ -3837,7 +4245,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "Were playing and, hmm...",
@@ -3872,7 +4282,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "laphli-uni",
+          "gloss_line": "fall-CVB.SIM"
         },
         {
           "id": "a2961",
@@ -3899,7 +4311,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-ma=yi",
+          "gloss_line": "DIST-PL=ERG"
         },
         {
           "id": "a2962",
@@ -3912,7 +4326,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a2963",
@@ -3932,7 +4348,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "kha-dzi",
+          "gloss_line": "come-PFV"
         },
         {
           "id": "a2964",
@@ -3945,7 +4363,9 @@
               "gloss": "help(<NP)",
               "display_gloss": "help(<NP)"
             }
-          ]
+          ],
+          "morpheme_line": "sayok",
+          "gloss_line": "help(<NP)"
         },
         {
           "id": "a2965",
@@ -3965,7 +4385,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "la-mmae",
+          "gloss_line": "do-MIR"
         }
       ],
       "translation": "Fell, and they came there and helped",
@@ -3993,7 +4415,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": ""
         },
         {
           "id": "a2967",
@@ -4006,7 +4430,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "koi",
+          "gloss_line": ""
         },
         {
           "id": "a2968",
@@ -4019,7 +4445,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2969",
@@ -4046,7 +4474,9 @@
               "gloss": "IND.IPFV",
               "display_gloss": "-IND.IPFV"
             }
-          ]
+          ],
+          "morpheme_line": "ri-mi-ba",
+          "gloss_line": "rise-CAUS-IND.IPFV"
         },
         {
           "id": "a2970",
@@ -4059,7 +4489,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "koi",
+          "gloss_line": ""
         },
         {
           "id": "a2971",
@@ -4086,7 +4518,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-mae=a",
+          "gloss_line": "DIST-PL=GEN"
         },
         {
           "id": "a2972",
@@ -4099,7 +4533,9 @@
               "gloss": "avocado",
               "display_gloss": "avocado"
             }
-          ]
+          ],
+          "morpheme_line": "avokado",
+          "gloss_line": "avocado"
         },
         {
           "id": "a2973",
@@ -4126,7 +4562,9 @@
               "gloss": "IND.IPFV",
               "display_gloss": "-IND.IPFV"
             }
-          ]
+          ],
+          "morpheme_line": "tĩ-mi-ba",
+          "gloss_line": "***-CAUS-IND.IPFV"
         },
         {
           "id": "a2974",
@@ -4139,7 +4577,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "wotsa",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2975",
@@ -4159,7 +4599,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "la-mmae",
+          "gloss_line": "do-MIR"
         }
       ],
       "translation": "Someone made him stand up, someone made pick their avocado, did like this",
@@ -4187,7 +4629,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a2977",
@@ -4207,7 +4651,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "la-dzi",
+          "gloss_line": "do-PFV"
         },
         {
           "id": "a2978",
@@ -4227,7 +4673,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "tĩ-irõno",
+          "gloss_line": "***-CVB.SEQ"
         },
         {
           "id": "a2979",
@@ -4247,7 +4695,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ya-mo",
+          "gloss_line": "go-NPST"
         },
         {
           "id": "a2980",
@@ -4260,7 +4710,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         },
         {
           "id": "a2981",
@@ -4273,7 +4725,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2982",
@@ -4286,7 +4740,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a2983",
@@ -4299,7 +4755,9 @@
               "gloss": "previous",
               "display_gloss": "previous"
             }
-          ]
+          ],
+          "morpheme_line": "talba",
+          "gloss_line": "previous"
         },
         {
           "id": "a2984",
@@ -4319,7 +4777,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "laphlia-mae",
+          "gloss_line": "fall-MIR"
         },
         {
           "id": "a2985",
@@ -4332,7 +4792,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         }
       ],
       "translation": "Did like this, picked, and while going, and while previously falling down",
@@ -4360,7 +4822,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a2987",
@@ -4373,7 +4837,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a2988",
@@ -4386,7 +4852,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a2989",
@@ -4406,7 +4874,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "sa=r",
+          "gloss_line": "ground=LOC"
         },
         {
           "id": "a2990",
@@ -4426,7 +4896,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "padia-mae",
+          "gloss_line": "fall-MIR"
         }
       ],
       "translation": "This cap fell down on the ground",
@@ -4454,7 +4926,9 @@
               "gloss": "and.then",
               "display_gloss": "and.then"
             }
-          ]
+          ],
+          "morpheme_line": "ani",
+          "gloss_line": "and.then"
         },
         {
           "id": "a2992",
@@ -4467,7 +4941,9 @@
               "gloss": "after.that",
               "display_gloss": "after.that"
             }
-          ]
+          ],
+          "morpheme_line": "tsakya",
+          "gloss_line": "after.that"
         },
         {
           "id": "a2993",
@@ -4487,7 +4963,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "phea-mo",
+          "gloss_line": "reach-NPST"
         },
         {
           "id": "a2994",
@@ -4500,7 +4978,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         },
         {
           "id": "a2995",
@@ -4527,7 +5007,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-ma=yi",
+          "gloss_line": "DIST-PL=ERG"
         },
         {
           "id": "a2996",
@@ -4547,7 +5029,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-mae",
+          "gloss_line": "DIST-PL"
         },
         {
           "id": "a2997",
@@ -4567,7 +5051,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ=yi",
+          "gloss_line": "three=ERG"
         }
       ],
       "translation": "And then while reaching, they, they three",
@@ -4595,7 +5081,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "syudi",
+          "gloss_line": ""
         },
         {
           "id": "a4942",
@@ -4608,7 +5096,9 @@
               "gloss": "whistle",
               "display_gloss": "whistle"
             }
-          ]
+          ],
+          "morpheme_line": "syutta",
+          "gloss_line": "whistle"
         },
         {
           "id": "a4943",
@@ -4628,7 +5118,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "la-dzi",
+          "gloss_line": "do-PFV"
         },
         {
           "id": "a4944",
@@ -4641,7 +5133,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "rammae",
+          "gloss_line": ""
         },
         {
           "id": "a4945",
@@ -4654,7 +5148,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "ke",
+          "gloss_line": "DM"
         },
         {
           "id": "a4946",
@@ -4667,7 +5163,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a4947",
@@ -4687,7 +5185,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "waekha-mmae",
+          "gloss_line": "look.behind-MIR"
         },
         {
           "id": "a4948",
@@ -4700,7 +5200,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a4949",
@@ -4720,7 +5222,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "wathia-dzi",
+          "gloss_line": "leave.behind-PFV"
         },
         {
           "id": "a4950",
@@ -4740,7 +5244,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "bi-ra",
+          "gloss_line": "say-CVB.SEQ"
         },
         {
           "id": "a4951",
@@ -4753,7 +5259,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         }
       ],
       "translation": "Played a whistle, looked behind there, forgot the cap",
@@ -4781,7 +5289,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a4953",
@@ -4808,7 +5318,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "pi-na-mae",
+          "gloss_line": "give-AND-MIR"
         },
         {
           "id": "a4954",
@@ -4821,7 +5333,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulku",
+          "gloss_line": "cap"
         },
         {
           "id": "a4955",
@@ -4848,7 +5362,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "pi-na-ũ",
+          "gloss_line": "give-AND-NPST"
         },
         {
           "id": "a4956",
@@ -4861,7 +5377,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         }
       ],
       "translation": "Went to give the cap, while going to give the cap...",
@@ -4889,7 +5407,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a4958",
@@ -4902,7 +5422,9 @@
               "gloss": "avocado",
               "display_gloss": "avocado"
             }
-          ]
+          ],
+          "morpheme_line": "avokado",
+          "gloss_line": "avocado"
         },
         {
           "id": "a4959",
@@ -4915,7 +5437,9 @@
               "gloss": "three",
               "display_gloss": "three"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ",
+          "gloss_line": "three"
         },
         {
           "id": "a4960",
@@ -4935,7 +5459,9 @@
               "gloss": "CVB",
               "display_gloss": "-CVB"
             }
-          ]
+          ],
+          "morpheme_line": "ki-si",
+          "gloss_line": "pick.up-CVB"
         }
       ],
       "translation": "Took three avocados",
@@ -4963,7 +5489,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a4962",
@@ -4976,7 +5504,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a4963",
@@ -4996,7 +5526,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "la-dzi",
+          "gloss_line": "do-PFV"
         },
         {
           "id": "a4964",
@@ -5016,7 +5548,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "tsu-dzi",
+          "gloss_line": "distribute-PFV"
         },
         {
           "id": "a4965",
@@ -5036,7 +5570,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "kha-mmae",
+          "gloss_line": "come-MIR"
         },
         {
           "id": "a4966",
@@ -5049,7 +5585,9 @@
               "gloss": "and.then",
               "display_gloss": "and.then"
             }
-          ]
+          ],
+          "morpheme_line": "ani",
+          "gloss_line": "and.then"
         },
         {
           "id": "a4967",
@@ -5062,7 +5600,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         }
       ],
       "translation": "Distributed one each and came and...",
@@ -5090,7 +5630,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a4969",
@@ -5110,7 +5652,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "kha-dzi",
+          "gloss_line": "come-PFV"
         },
         {
           "id": "a4970",
@@ -5123,7 +5667,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a4971",
@@ -5136,7 +5682,9 @@
               "gloss": "previous",
               "display_gloss": "previous"
             }
-          ]
+          ],
+          "morpheme_line": "talba",
+          "gloss_line": "previous"
         },
         {
           "id": "a4972",
@@ -5149,7 +5697,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tõriũgudi",
+          "gloss_line": ""
         }
       ],
       "translation": "Came there, plucking previously",
@@ -5177,7 +5727,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a4974",
@@ -5197,7 +5749,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "mi=a",
+          "gloss_line": "man=GEN"
         },
         {
           "id": "a4975",
@@ -5210,7 +5764,9 @@
               "gloss": "near",
               "display_gloss": "near"
             }
-          ]
+          ],
+          "morpheme_line": "ngar",
+          "gloss_line": "near"
         },
         {
           "id": "a4976",
@@ -5223,7 +5779,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         }
       ],
       "translation": "Near this man",
@@ -5251,7 +5809,9 @@
               "gloss": "after.that",
               "display_gloss": "after.that"
             }
-          ]
+          ],
+          "morpheme_line": "tsadakya",
+          "gloss_line": "after.that"
         },
         {
           "id": "a4978",
@@ -5264,7 +5824,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a4979",
@@ -5284,7 +5846,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-mae",
+          "gloss_line": "DIST-PL"
         },
         {
           "id": "a4980",
@@ -5297,7 +5861,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a4981",
@@ -5310,7 +5876,9 @@
               "gloss": "avocado",
               "display_gloss": "avocado"
             }
-          ]
+          ],
+          "morpheme_line": "avokado",
+          "gloss_line": "avocado"
         },
         {
           "id": "a4982",
@@ -5323,7 +5891,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tsatsai",
+          "gloss_line": ""
         },
         {
           "id": "a4983",
@@ -5343,7 +5913,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "yu-imo",
+          "gloss_line": "descend-NPST"
         },
         {
           "id": "a4984",
@@ -5356,7 +5928,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a4985",
@@ -5369,7 +5943,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a4986",
@@ -5382,7 +5958,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a4987",
@@ -5402,7 +5980,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "sĩdũtũ=a",
+          "gloss_line": "tree=GEN"
         },
         {
           "id": "a4988",
@@ -5415,7 +5995,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a4989",
@@ -5428,7 +6010,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "Then they go eating this avocado, and this man down from the tree...",
@@ -5463,7 +6047,9 @@
               "gloss": "ABL",
               "display_gloss": "=ABL"
             }
-          ]
+          ],
+          "morpheme_line": "tũ=da",
+          "gloss_line": "tree=ABL"
         },
         {
           "id": "a4991",
@@ -5476,7 +6062,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a4992",
@@ -5489,7 +6077,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a4993",
@@ -5509,7 +6099,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "dzardiye-mo",
+          "gloss_line": "descend-NPST"
         }
       ],
       "translation": "Comes down from the tree",
@@ -5544,7 +6136,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "eat=LOC"
         },
         {
           "id": "a4995",
@@ -5564,7 +6158,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "ngi-mae",
+          "gloss_line": "look-MIR"
         },
         {
           "id": "a4996",
@@ -5577,7 +6173,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "dõ",
+          "gloss_line": "***"
         },
         {
           "id": "a4997",
@@ -5597,7 +6195,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "nga=a",
+          "gloss_line": "1SG=GEN"
         },
         {
           "id": "a4998",
@@ -5610,7 +6210,9 @@
               "gloss": "distribute",
               "display_gloss": "distribute"
             }
-          ]
+          ],
+          "morpheme_line": "tsu",
+          "gloss_line": "distribute"
         },
         {
           "id": "a4999",
@@ -5623,7 +6225,9 @@
               "gloss": "where",
               "display_gloss": "where"
             }
-          ]
+          ],
+          "morpheme_line": "khana",
+          "gloss_line": "where"
         },
         {
           "id": "a5000",
@@ -5636,7 +6240,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "õ",
+          "gloss_line": "***"
         }
       ],
       "translation": "Looks there, 'where are my...'",
@@ -5671,7 +6277,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "pokho=ri",
+          "gloss_line": "basket=LOC"
         },
         {
           "id": "a5002",
@@ -5684,7 +6292,9 @@
               "gloss": "where",
               "display_gloss": "where"
             }
-          ]
+          ],
+          "morpheme_line": "khana",
+          "gloss_line": "where"
         },
         {
           "id": "a5003",
@@ -5704,7 +6314,9 @@
               "gloss": "UNCERT",
               "display_gloss": "=UNCERT"
             }
-          ]
+          ],
+          "morpheme_line": "ya=ngye",
+          "gloss_line": "go=UNCERT"
         },
         {
           "id": "a5004",
@@ -5717,7 +6329,9 @@
               "gloss": "say",
               "display_gloss": "say"
             }
-          ]
+          ],
+          "morpheme_line": "bi",
+          "gloss_line": "say"
         },
         {
           "id": "a5005",
@@ -5730,7 +6344,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "andre",
+          "gloss_line": "***"
         },
         {
           "id": "a5006",
@@ -5750,7 +6366,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "la-dzi",
+          "gloss_line": "do-PFV"
         },
         {
           "id": "a5007",
@@ -5770,7 +6388,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ngi-mo",
+          "gloss_line": "look-NPST"
         },
         {
           "id": "a5008",
@@ -5790,7 +6410,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-mae",
+          "gloss_line": "DIST-PL"
         },
         {
           "id": "a5009",
@@ -5803,7 +6425,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a5010",
@@ -5816,7 +6440,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a5011",
@@ -5836,7 +6462,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "la-dzi",
+          "gloss_line": "do-PFV"
         },
         {
           "id": "a5012",
@@ -5856,7 +6484,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-imae",
+          "gloss_line": "eat-MIR"
         }
       ],
       "translation": "Where might have one basket gone, looks surprised, they eat like this",
@@ -5898,7 +6528,9 @@
               "gloss": "COM",
               "display_gloss": "=COM"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-mae=di",
+          "gloss_line": "DIST-MIR=COM"
         },
         {
           "id": "a5014",
@@ -5918,7 +6550,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "ngiko",
+          "gloss_line": "look***"
         },
         {
           "id": "a5015",
@@ -5931,7 +6565,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "ngikoi",
+          "gloss_line": ""
         },
         {
           "id": "a5016",
@@ -5951,7 +6587,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ta-mo",
+          "gloss_line": "become-NPST"
         },
         {
           "id": "a5017",
@@ -5964,7 +6602,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tsogori",
+          "gloss_line": ""
         },
         {
           "id": "a5018",
@@ -5977,7 +6617,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wo",
+          "gloss_line": "DM"
         },
         {
           "id": "a5019",
@@ -5990,7 +6632,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tshiaũ",
+          "gloss_line": ""
         }
       ],
       "translation": "Keeps looking at them, this much finishes",
@@ -6018,7 +6662,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "",
+          "gloss_line": "***"
         }
       ],
       "translation": "he might have taken from the previous bicycle?",
@@ -6046,7 +6692,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "",
+          "gloss_line": "***"
         }
       ],
       "translation": "Yes",
@@ -6074,7 +6722,9 @@
               "gloss": "knowledge(<NP)",
               "display_gloss": "knowledge(<NP)"
             }
-          ]
+          ],
+          "morpheme_line": "tha",
+          "gloss_line": "knowledge(<NP)"
         },
         {
           "id": "a5508",
@@ -6101,7 +6751,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "a-yõ-ni",
+          "gloss_line": "NEG-find-CVB.SIM"
         },
         {
           "id": "a5509",
@@ -6114,7 +6766,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "boangya",
+          "gloss_line": ""
         },
         {
           "id": "a5510",
@@ -6127,7 +6781,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "di",
+          "gloss_line": ""
         }
       ],
       "translation": "Maybe took without knowing",
@@ -6155,7 +6811,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "thai",
+          "gloss_line": ""
         },
         {
           "id": "a3085",
@@ -6168,7 +6826,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a3086",
@@ -6188,7 +6848,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "mu=r",
+          "gloss_line": "sky=LOC"
         },
         {
           "id": "a3087",
@@ -6215,7 +6877,9 @@
               "gloss": "UNCERT",
               "display_gloss": "=UNCERT"
             }
-          ]
+          ],
+          "morpheme_line": "tõ=ri=ngye",
+          "gloss_line": "pluck=INDEF=UNCERT"
         },
         {
           "id": "a3088",
@@ -6228,7 +6892,9 @@
               "gloss": "sky",
               "display_gloss": "sky"
             }
-          ]
+          ],
+          "morpheme_line": "mu",
+          "gloss_line": "sky"
         },
         {
           "id": "a3089",
@@ -6255,7 +6921,9 @@
               "gloss": "IND.IPFV",
               "display_gloss": "-IND.IPFV"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-ri-ba",
+          "gloss_line": "pluck-CONT-IND.IPFV"
         },
         {
           "id": "a3090",
@@ -6268,7 +6936,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõr",
+          "gloss_line": "while"
         }
       ],
       "translation": "He was maybe plucking up there, and while plucking...",
@@ -6296,7 +6966,9 @@
               "gloss": "knowledge(<NP)",
               "display_gloss": "knowledge(<NP)"
             }
-          ]
+          ],
+          "morpheme_line": "tha",
+          "gloss_line": "knowledge(<NP)"
         },
         {
           "id": "a3092",
@@ -6323,7 +6995,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "a-yõ-ni",
+          "gloss_line": "NEG-find-CVB.SIM"
         },
         {
           "id": "a3093",
@@ -6343,7 +7017,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "bo-dzi",
+          "gloss_line": "bring-PFV"
         },
         {
           "id": "a3094",
@@ -6363,7 +7039,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "ya-dzi",
+          "gloss_line": "go-PFV"
         }
       ],
       "translation": "Took and went without (the man) knowing",
@@ -6391,7 +7069,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tsakya",
+          "gloss_line": ""
         },
         {
           "id": "a3096",
@@ -6404,7 +7084,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "lasar",
+          "gloss_line": ""
         },
         {
           "id": "a3097",
@@ -6417,7 +7099,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a3098",
@@ -6437,7 +7121,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-dzi",
+          "gloss_line": "pluck-PFV"
         },
         {
           "id": "a3099",
@@ -6450,7 +7136,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a3100",
@@ -6463,7 +7151,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a3101",
@@ -6483,7 +7173,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "the=a",
+          "gloss_line": "3.EMPH=GEN"
         },
         {
           "id": "a3102",
@@ -6496,7 +7188,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "tsetsu",
+          "gloss_line": "***"
         },
         {
           "id": "a3103",
@@ -6516,7 +7210,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "khu=r",
+          "gloss_line": "pocket=LOC"
         },
         {
           "id": "a3104",
@@ -6536,7 +7232,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "thĩ-mmae",
+          "gloss_line": "***-MIR"
         },
         {
           "id": "a3105",
@@ -6549,7 +7247,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a3106",
@@ -6569,7 +7269,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "khu=r",
+          "gloss_line": "pocket=LOC"
         },
         {
           "id": "a3107",
@@ -6589,7 +7291,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "tsõ-mmae",
+          "gloss_line": "put-MIR"
         },
         {
           "id": "a3108",
@@ -6609,7 +7313,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=r",
+          "gloss_line": "eat=LOC"
         }
       ],
       "translation": "Then in the last, plucked it downand put in his pocket, put in the pocket",
@@ -6637,7 +7343,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "thĩ",
+          "gloss_line": "***"
         },
         {
           "id": "a3110",
@@ -6650,7 +7358,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a3111",
@@ -6670,7 +7380,9 @@
               "gloss": "CVB.SIM",
               "display_gloss": "-CVB.SIM"
             }
-          ]
+          ],
+          "morpheme_line": "yu-ni",
+          "gloss_line": "descend-CVB.SIM"
         },
         {
           "id": "a3112",
@@ -6683,7 +7395,9 @@
               "gloss": "fiinally",
               "display_gloss": "fiinally"
             }
-          ]
+          ],
+          "morpheme_line": "balla",
+          "gloss_line": "fiinally"
         }
       ],
       "translation": "Put and came down, finally",
@@ -6718,7 +7432,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "nga=a",
+          "gloss_line": "1SG=GEN"
         },
         {
           "id": "a3114",
@@ -6731,7 +7447,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a3115",
@@ -6744,7 +7462,9 @@
               "gloss": "thing",
               "display_gloss": "thing"
             }
-          ]
+          ],
+          "morpheme_line": "udza",
+          "gloss_line": "thing"
         },
         {
           "id": "a3116",
@@ -6757,7 +7477,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a3117",
@@ -6770,7 +7492,9 @@
               "gloss": "where",
               "display_gloss": "where"
             }
-          ]
+          ],
+          "morpheme_line": "khana",
+          "gloss_line": "where"
         },
         {
           "id": "a3118",
@@ -6790,7 +7514,9 @@
               "gloss": "UNCERT",
               "display_gloss": "=UNCERT"
             }
-          ]
+          ],
+          "morpheme_line": "ya=ngye",
+          "gloss_line": "go=UNCERT"
         },
         {
           "id": "a3119",
@@ -6803,7 +7529,9 @@
               "gloss": "say",
               "display_gloss": "say"
             }
-          ]
+          ],
+          "morpheme_line": "bi",
+          "gloss_line": "say"
         },
         {
           "id": "a3120",
@@ -6823,7 +7551,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ngi-mo",
+          "gloss_line": "look-NPST"
         },
         {
           "id": "a3121",
@@ -6836,7 +7566,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         },
         {
           "id": "a3122",
@@ -6849,7 +7581,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         }
       ],
       "translation": "Where might have my thing gone, while looking",
@@ -6877,7 +7611,9 @@
               "gloss": "previous",
               "display_gloss": "previous"
             }
-          ]
+          ],
+          "morpheme_line": "talba",
+          "gloss_line": "previous"
         },
         {
           "id": "a3124",
@@ -6904,7 +7640,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-ma=yi",
+          "gloss_line": "DIST-PL=ERG"
         }
       ],
       "translation": "The previous they",
@@ -6939,7 +7677,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ=yi",
+          "gloss_line": "three=ERG"
         },
         {
           "id": "a3126",
@@ -6952,7 +7692,9 @@
               "gloss": "like.this",
               "display_gloss": "like.this"
             }
-          ]
+          ],
+          "morpheme_line": "tsali",
+          "gloss_line": "like.this"
         },
         {
           "id": "a3127",
@@ -6972,7 +7714,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-dzi",
+          "gloss_line": "eat-PFV"
         },
         {
           "id": "a3128",
@@ -6992,7 +7736,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "tsa-dzi",
+          "gloss_line": "DIST-PFV"
         },
         {
           "id": "a3129",
@@ -7019,7 +7765,9 @@
               "gloss": "IND.IPFV",
               "display_gloss": "-IND.IPFV"
             }
-          ]
+          ],
+          "morpheme_line": "kha=ri-ba",
+          "gloss_line": "come=INDEF-IND.IPFV"
         },
         {
           "id": "a3130",
@@ -7039,7 +7787,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "mro-ũ",
+          "gloss_line": "see-NPST"
         },
         {
           "id": "a3131",
@@ -7052,7 +7802,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "ke",
+          "gloss_line": "DM"
         }
       ],
       "translation": "The three were coming eating eating like this, (the man) saw",
@@ -7080,7 +7832,9 @@
               "gloss": "goat",
               "display_gloss": "goat"
             }
-          ]
+          ],
+          "morpheme_line": "ra",
+          "gloss_line": "goat"
         },
         {
           "id": "a6704",
@@ -7093,7 +7847,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "i",
+          "gloss_line": ""
         },
         {
           "id": "a6705",
@@ -7106,7 +7862,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a6706",
@@ -7119,7 +7877,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a6707",
@@ -7132,7 +7892,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a6708",
@@ -7145,7 +7907,9 @@
               "gloss": "goat",
               "display_gloss": "goat"
             }
-          ]
+          ],
+          "morpheme_line": "ra",
+          "gloss_line": "goat"
         },
         {
           "id": "a6709",
@@ -7158,7 +7922,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "i",
+          "gloss_line": ""
         },
         {
           "id": "a6710",
@@ -7171,7 +7937,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wo",
+          "gloss_line": "DM"
         }
       ],
       "translation": "And the goat, the man, also the goat...",
@@ -7199,7 +7967,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6712",
@@ -7219,7 +7989,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "mu=r",
+          "gloss_line": "sky=LOC"
         },
         {
           "id": "a6713",
@@ -7246,7 +8018,9 @@
               "gloss": "IND.IPFV",
               "display_gloss": "-IND.IPFV"
             }
-          ]
+          ],
+          "morpheme_line": "tõ-ri-ba",
+          "gloss_line": "pluck-CONT-IND.IPFV"
         },
         {
           "id": "a6714",
@@ -7259,7 +8033,9 @@
               "gloss": "goat",
               "display_gloss": "goat"
             }
-          ]
+          ],
+          "morpheme_line": "ra",
+          "gloss_line": "goat"
         },
         {
           "id": "a6715",
@@ -7272,7 +8048,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "i",
+          "gloss_line": ""
         },
         {
           "id": "a6716",
@@ -7285,7 +8063,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wo",
+          "gloss_line": "DM"
         },
         {
           "id": "a6717",
@@ -7305,7 +8085,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "nge-mmae",
+          "gloss_line": "***-MIR"
         },
         {
           "id": "a6718",
@@ -7318,7 +8100,9 @@
               "gloss": "3.EMPH",
               "display_gloss": "3.EMPH"
             }
-          ]
+          ],
+          "morpheme_line": "the",
+          "gloss_line": "3.EMPH"
         },
         {
           "id": "a6719",
@@ -7331,7 +8115,9 @@
               "gloss": "goat",
               "display_gloss": "goat"
             }
-          ]
+          ],
+          "morpheme_line": "ra",
+          "gloss_line": "goat"
         },
         {
           "id": "a6720",
@@ -7344,7 +8130,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "i",
+          "gloss_line": ""
         },
         {
           "id": "a6721",
@@ -7357,7 +8145,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wo",
+          "gloss_line": "DM"
         },
         {
           "id": "a6722",
@@ -7384,7 +8174,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "tsãĩbo-mo",
+          "gloss_line": "pull***-NPST"
         },
         {
           "id": "a6723",
@@ -7397,7 +8189,9 @@
               "gloss": "this.much",
               "display_gloss": "this.much"
             }
-          ]
+          ],
+          "morpheme_line": "tsogoi",
+          "gloss_line": "this.much"
         },
         {
           "id": "a6724",
@@ -7417,7 +8211,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ya-ũ",
+          "gloss_line": "go-NPST"
         }
       ],
       "translation": "He was plucking up there, also a goat shouted, goat was brought and pulled, this much",
@@ -7445,7 +8241,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "",
+          "gloss_line": "***"
         }
       ],
       "translation": "They, these boys stole and eat?",
@@ -7473,7 +8271,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "",
+          "gloss_line": "***"
         }
       ],
       "translation": "yes",
@@ -7501,7 +8301,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "",
+          "gloss_line": "***"
         }
       ],
       "translation": "On a bicycle",
@@ -7529,7 +8331,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "ã",
+          "gloss_line": ""
         },
         {
           "id": "a6741",
@@ -7542,7 +8346,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a6742",
@@ -7555,7 +8361,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a6743",
@@ -7575,7 +8383,9 @@
               "gloss": "CVB",
               "display_gloss": "-CVB"
             }
-          ]
+          ],
+          "morpheme_line": "padia-si",
+          "gloss_line": "fall-CVB"
         }
       ],
       "translation": "Yes, cap fell down",
@@ -7603,7 +8413,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6745",
@@ -7616,7 +8428,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a6746",
@@ -7636,7 +8450,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "wathia-mae",
+          "gloss_line": "leave.behind-MIR"
         }
       ],
       "translation": "Left this cap",
@@ -7671,7 +8487,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "phlie-irõ",
+          "gloss_line": "fall-CVB.SEQ"
         },
         {
           "id": "a6748",
@@ -7684,7 +8502,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulku",
+          "gloss_line": "cap"
         },
         {
           "id": "a6749",
@@ -7697,7 +8517,9 @@
               "gloss": "leave.behind",
               "display_gloss": "leave.behind"
             }
-          ]
+          ],
+          "morpheme_line": "wathi",
+          "gloss_line": "leave.behind"
         },
         {
           "id": "a6750",
@@ -7710,7 +8532,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6751",
@@ -7730,7 +8554,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "saikala=r",
+          "gloss_line": "bicycle=LOC"
         },
         {
           "id": "a6752",
@@ -7743,7 +8569,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a6753",
@@ -7763,7 +8591,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ya-mo",
+          "gloss_line": "go-NPST"
         },
         {
           "id": "a6754",
@@ -7776,7 +8606,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         }
       ],
       "translation": "Fell down, left the cap, while going on this bicycle",
@@ -7804,7 +8636,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a6756",
@@ -7824,7 +8658,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "wathia-mae",
+          "gloss_line": "leave.behind-MIR"
         },
         {
           "id": "a6757",
@@ -7837,7 +8673,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6758",
@@ -7850,7 +8688,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a6759",
@@ -7863,7 +8703,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a6760",
@@ -7890,7 +8732,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "ki-na-mo",
+          "gloss_line": "pick.up-AND-NPST"
         },
         {
           "id": "a6761",
@@ -7903,7 +8747,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         }
       ],
       "translation": "Left the cap, while going there to pick up the cap...",
@@ -7931,7 +8777,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a6763",
@@ -7944,7 +8792,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a6764",
@@ -7957,7 +8807,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "syuri",
+          "gloss_line": ""
         },
         {
           "id": "a6765",
@@ -7970,7 +8822,9 @@
               "gloss": "whistle",
               "display_gloss": "whistle"
             }
-          ]
+          ],
+          "morpheme_line": "syutta",
+          "gloss_line": "whistle"
         },
         {
           "id": "a6766",
@@ -7990,7 +8844,9 @@
               "gloss": "CVB.SEQ",
               "display_gloss": "-CVB.SEQ"
             }
-          ]
+          ],
+          "morpheme_line": "la-irõ",
+          "gloss_line": "do-CVB.SEQ"
         },
         {
           "id": "a6767",
@@ -8010,7 +8866,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "kyo=a",
+          "gloss_line": "2SG=GEN"
         },
         {
           "id": "a6768",
@@ -8023,7 +8881,9 @@
               "gloss": "cap",
               "display_gloss": "cap"
             }
-          ]
+          ],
+          "morpheme_line": "mulkhu",
+          "gloss_line": "cap"
         },
         {
           "id": "a6769",
@@ -8043,7 +8903,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "wathia-i",
+          "gloss_line": "leave.behind-PFV"
         },
         {
           "id": "a6770",
@@ -8056,7 +8918,9 @@
               "gloss": "say",
               "display_gloss": "say"
             }
-          ]
+          ],
+          "morpheme_line": "bi",
+          "gloss_line": "say"
         }
       ],
       "translation": "Cap there, whistled, (you) left your cap, said",
@@ -8084,7 +8948,9 @@
               "gloss": "here.there",
               "display_gloss": "here.there"
             }
-          ]
+          ],
+          "morpheme_line": "kya",
+          "gloss_line": "here.there"
         },
         {
           "id": "a6772",
@@ -8111,7 +8977,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "pi-na-mo",
+          "gloss_line": "give-AND-NPST"
         },
         {
           "id": "a6773",
@@ -8124,7 +8992,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõri",
+          "gloss_line": "while"
         },
         {
           "id": "a6774",
@@ -8137,7 +9007,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6775",
@@ -8150,7 +9022,9 @@
               "gloss": "three",
               "display_gloss": "three"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ",
+          "gloss_line": "three"
         },
         {
           "id": "a6776",
@@ -8163,7 +9037,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "kibokhamo",
+          "gloss_line": ""
         },
         {
           "id": "a6777",
@@ -8176,7 +9052,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "ke",
+          "gloss_line": "DM"
         }
       ],
       "translation": "While going there to give, these three picked and brought",
@@ -8204,7 +9082,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6779",
@@ -8217,7 +9097,9 @@
               "gloss": "three",
               "display_gloss": "three"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ",
+          "gloss_line": "three"
         },
         {
           "id": "a6780",
@@ -8230,7 +9112,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "kibokhani",
+          "gloss_line": ""
         },
         {
           "id": "a6781",
@@ -8243,7 +9127,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6782",
@@ -8256,7 +9142,9 @@
               "gloss": "three",
               "display_gloss": "three"
             }
-          ]
+          ],
+          "morpheme_line": "sõũlõ",
+          "gloss_line": "three"
         },
         {
           "id": "a6783",
@@ -8269,7 +9157,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a6784",
@@ -8282,7 +9172,9 @@
               "gloss": "one",
               "display_gloss": "one"
             }
-          ]
+          ],
+          "morpheme_line": "kri",
+          "gloss_line": "one"
         },
         {
           "id": "a6785",
@@ -8302,7 +9194,9 @@
               "gloss": "PL",
               "display_gloss": "-PL"
             }
-          ]
+          ],
+          "morpheme_line": "the-mae",
+          "gloss_line": "3.EMPH-PL"
         },
         {
           "id": "a6786",
@@ -8322,7 +9216,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=yi",
+          "gloss_line": "eat=ERG"
         },
         {
           "id": "a6787",
@@ -8342,7 +9238,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "kha-mo",
+          "gloss_line": "come-NPST"
         },
         {
           "id": "a6788",
@@ -8355,7 +9253,9 @@
               "gloss": "while",
               "display_gloss": "while"
             }
-          ]
+          ],
+          "morpheme_line": "tõr",
+          "gloss_line": "while"
         },
         {
           "id": "a6789",
@@ -8368,7 +9268,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6790",
@@ -8388,7 +9290,9 @@
               "gloss": "LOC",
               "display_gloss": "=LOC"
             }
-          ]
+          ],
+          "morpheme_line": "kyaa=ri",
+          "gloss_line": "road=LOC"
         },
         {
           "id": "a6791",
@@ -8408,7 +9312,9 @@
               "gloss": "NPST",
               "display_gloss": "-NPST"
             }
-          ]
+          ],
+          "morpheme_line": "kha-mo",
+          "gloss_line": "come-NPST"
         },
         {
           "id": "a6792",
@@ -8421,7 +9327,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6793",
@@ -8434,7 +9342,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         }
       ],
       "translation": "These three picked and brought, these three go eating one each, and on this road comes this man",
@@ -8469,7 +9379,9 @@
               "gloss": "GEN",
               "display_gloss": "=GEN"
             }
-          ]
+          ],
+          "morpheme_line": "the=a",
+          "gloss_line": "3.EMPH=GEN"
         },
         {
           "id": "a6795",
@@ -8482,7 +9394,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a6796",
@@ -8495,7 +9409,9 @@
               "gloss": "***",
               "display_gloss": "***"
             }
-          ]
+          ],
+          "morpheme_line": "sĩ",
+          "gloss_line": "***"
         },
         {
           "id": "a6797",
@@ -8508,7 +9424,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6798",
@@ -8528,7 +9446,9 @@
               "gloss": "ABL",
               "display_gloss": "=ABL"
             }
-          ]
+          ],
+          "morpheme_line": "tu=da",
+          "gloss_line": "up=ABL"
         },
         {
           "id": "a6799",
@@ -8541,7 +9461,9 @@
               "gloss": "down",
               "display_gloss": "down"
             }
-          ]
+          ],
+          "morpheme_line": "ma",
+          "gloss_line": "down"
         },
         {
           "id": "a6800",
@@ -8561,7 +9483,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "yu-i",
+          "gloss_line": "descend-PFV"
         },
         {
           "id": "a6801",
@@ -8574,7 +9498,9 @@
               "gloss": "fiinally",
               "display_gloss": "fiinally"
             }
-          ]
+          ],
+          "morpheme_line": "balla",
+          "gloss_line": "fiinally"
         }
       ],
       "translation": "Came down from his tree finally",
@@ -8602,7 +9528,9 @@
               "gloss": "HESIT",
               "display_gloss": "HESIT"
             }
-          ]
+          ],
+          "morpheme_line": "tora",
+          "gloss_line": "HESIT"
         },
         {
           "id": "a6803",
@@ -8615,7 +9543,9 @@
               "gloss": "DIST",
               "display_gloss": "DIST"
             }
-          ]
+          ],
+          "morpheme_line": "tsa",
+          "gloss_line": "DIST"
         },
         {
           "id": "a6804",
@@ -8628,7 +9558,9 @@
               "gloss": "man",
               "display_gloss": "man"
             }
-          ]
+          ],
+          "morpheme_line": "mi",
+          "gloss_line": "man"
         },
         {
           "id": "a6805",
@@ -8655,7 +9587,9 @@
               "gloss": "ERG",
               "display_gloss": "=ERG"
             }
-          ]
+          ],
+          "morpheme_line": "tsu-ma=yi",
+          "gloss_line": "distribute-PL=ERG"
         },
         {
           "id": "a6806",
@@ -8668,7 +9602,9 @@
               "gloss": "how",
               "display_gloss": "how"
             }
-          ]
+          ],
+          "morpheme_line": "khali",
+          "gloss_line": "how"
         },
         {
           "id": "a6807",
@@ -8688,7 +9624,9 @@
               "gloss": "UNCERT",
               "display_gloss": "=UNCERT"
             }
-          ]
+          ],
+          "morpheme_line": "tsa=ngye",
+          "gloss_line": "eat=UNCERT"
         },
         {
           "id": "a6808",
@@ -8708,7 +9646,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "nga-i",
+          "gloss_line": "feel-PFV"
         },
         {
           "id": "a6809",
@@ -8721,7 +9661,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "hai",
+          "gloss_line": ""
         },
         {
           "id": "a6810",
@@ -8741,7 +9683,9 @@
               "gloss": "PFV",
               "display_gloss": "-PFV"
             }
-          ]
+          ],
+          "morpheme_line": "la-i",
+          "gloss_line": "do-PFV"
         },
         {
           "id": "a6811",
@@ -8761,7 +9705,9 @@
               "gloss": "MIR",
               "display_gloss": "-MIR"
             }
-          ]
+          ],
+          "morpheme_line": "ngi-amae",
+          "gloss_line": "look-MIR"
         },
         {
           "id": "a6812",
@@ -8774,7 +9720,9 @@
               "gloss": null,
               "display_gloss": null
             }
-          ]
+          ],
+          "morpheme_line": "tsogori",
+          "gloss_line": ""
         },
         {
           "id": "a6813",
@@ -8787,7 +9735,9 @@
               "gloss": "DM",
               "display_gloss": "DM"
             }
-          ]
+          ],
+          "morpheme_line": "wo",
+          "gloss_line": "DM"
         },
         {
           "id": "a6814",
@@ -8800,7 +9750,9 @@
               "gloss": "finish",
               "display_gloss": "finish"
             }
-          ]
+          ],
+          "morpheme_line": "tshi",
+          "gloss_line": "finish"
         }
       ],
       "translation": "Hmm, this man, how did they eat like this, felt, looked surprised, that's it",

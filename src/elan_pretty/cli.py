@@ -1,11 +1,20 @@
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 from typing import Optional
 
 import typer
 
 from elan_pretty.config import ProjectConfig, RenderConfig, load_config
+from elan_pretty.github_pages import (
+    PublicationEntry,
+    discover_publications,
+    public_url_for_path,
+    remote_to_pages_base_url,
+    write_publication_index,
+    write_root_redirect,
+)
 from elan_pretty.normalize import EafNormalizer
 from elan_pretty.parser import EafParser
 from elan_pretty.raw import RawEafDocument
@@ -31,15 +40,41 @@ def render(
     theme: Optional[str] = typer.Option(None, "--theme", help="Theme: light, dark, or system."),
     title: Optional[str] = typer.Option(None, "--title", help="Override the document title."),
     inspect_tiers: bool = typer.Option(False, "--inspect-tiers", help="Print tier inventory."),
+    github_pages: bool = typer.Option(
+        False,
+        "--github-pages",
+        help="Render as GitHub Pages publications under OUTPUT_DIR/<slug>/.",
+    ),
+    pages_base_url: Optional[str] = typer.Option(
+        None,
+        "--pages-base-url",
+        help="Override inferred GitHub Pages base URL.",
+    ),
+    commit_and_push: bool = typer.Option(
+        False,
+        "--commit-and-push",
+        help="Commit rendered GitHub Pages artifacts and push to the configured remote.",
+    ),
+    remote: str = typer.Option("origin", "--remote", help="Git remote used for URL inference and push."),
+    commit_message: Optional[str] = typer.Option(
+        None, "--commit-message", help="Commit message for --commit-and-push."
+    ),
 ) -> None:
     config = _with_cli_overrides(load_config(config_path), audio_links=audio_links, theme=theme, title=title)
     eaf_paths = _resolve_inputs(input_path)
     if not eaf_paths:
         raise typer.BadParameter(f"No .eaf files found at {input_path}")
+    if commit_and_push and not github_pages:
+        raise typer.BadParameter("--commit-and-push requires --github-pages")
 
     output_dir.mkdir(parents=True, exist_ok=True)
     parser = EafParser()
     renderer = HTMLRenderer()
+    repo_root = _repo_root() if github_pages or commit_and_push else None
+    if github_pages and repo_root is not None and not output_dir.resolve().is_relative_to(repo_root.resolve()):
+        raise typer.BadParameter("GitHub Pages OUTPUT_DIR must be inside the git repository")
+    base_url = _pages_base_url(repo_root, pages_base_url, remote) if github_pages else None
+    publications: list[PublicationEntry] = []
 
     for eaf_path in eaf_paths:
         raw = parser.parse(eaf_path)
@@ -48,21 +83,62 @@ def render(
 
         document = EafNormalizer(raw, config).normalize()
         stem = safe_slug(eaf_path.stem)
+        render_dir = output_dir / stem if github_pages else output_dir
+        html_stem = "index" if github_pages else stem
 
-        json_path = output_dir / f"{stem}.json"
+        render_dir.mkdir(parents=True, exist_ok=True)
+        json_path = render_dir / f"{stem}.json"
         json_path.write_text(document.model_dump_json(indent=2), encoding="utf-8")
 
-        html_path = renderer.write(document, output_dir, config, stem=stem)
+        html_path = renderer.write(document, render_dir, config, stem=html_stem)
         typer.echo(f"Wrote {html_path}")
         typer.echo(f"Wrote {json_path}")
 
+        pdf_path: Path | None = None
         if pdf:
-            pdf_path = output_dir / f"{stem}.pdf"
+            pdf_path = render_dir / f"{stem}.pdf"
             render_pdf(html_path, pdf_path, backend=pdf_backend)
             typer.echo(f"Wrote {pdf_path}")
 
+        if github_pages:
+            url = public_url_for_path(repo_root, render_dir, base_url) if repo_root and base_url else None
+            if url:
+                typer.echo(f"Public URL: {url}")
+            publications.append(
+                PublicationEntry(
+                    title=document.title,
+                    slug=stem,
+                    url=url,
+                    html_path=html_path,
+                    json_path=json_path,
+                    pdf_path=pdf_path,
+                )
+            )
+
         for warning in document.warnings:
             typer.secho(f"warning: {warning}", fg=typer.colors.YELLOW, err=True)
+
+    if github_pages:
+        existing_publications = discover_publications(
+            output_dir,
+            repo_root=repo_root,
+            base_url=base_url,
+            exclude_slugs={publication.slug for publication in publications},
+        )
+        index_path = write_publication_index(output_dir, [*existing_publications, *publications])
+        typer.echo(f"Wrote {index_path}")
+        if repo_root is not None:
+            root_index = write_root_redirect(
+                repo_root,
+                output_dir.resolve().relative_to(repo_root.resolve()).as_posix() + "/",
+            )
+            typer.echo(f"Wrote {root_index}")
+
+    if commit_and_push:
+        if repo_root is None:
+            repo_root = _repo_root()
+        message = commit_message or "Publish ELAN Pretty output"
+        _commit_and_push(repo_root, [output_dir, repo_root / "index.html"], message, remote)
 
 
 def _with_cli_overrides(
@@ -100,3 +176,57 @@ def _print_tiers(raw: RawEafDocument) -> None:
             f"{tier.id}\t{tier.parent_ref or ''}\t"
             f"{tier.linguistic_type_ref or ''}\t{len(tier.annotations)}"
         )
+
+
+def _repo_root() -> Path:
+    result = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return Path(result.stdout.strip())
+
+
+def _pages_base_url(repo_root: Path | None, override: str | None, remote: str) -> str | None:
+    if override:
+        return override
+    if repo_root is None:
+        return None
+    result = subprocess.run(
+        ["git", "-C", str(repo_root), "remote", "get-url", remote],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    base_url = remote_to_pages_base_url(result.stdout.strip())
+    if base_url is None:
+        typer.secho(
+            f"warning: could not infer GitHub Pages URL from remote {remote!r}",
+            fg=typer.colors.YELLOW,
+            err=True,
+        )
+    return base_url
+
+
+def _commit_and_push(repo_root: Path, paths: list[Path], message: str, remote: str) -> None:
+    relative_paths = [
+        path.resolve().relative_to(repo_root.resolve()).as_posix()
+        for path in paths
+        if path.exists()
+    ]
+    if not relative_paths:
+        typer.echo("No GitHub Pages paths exist to commit.")
+        return
+
+    subprocess.run(["git", "-C", str(repo_root), "add", *relative_paths], check=True)
+    changed = subprocess.run(
+        ["git", "-C", str(repo_root), "diff", "--cached", "--quiet"],
+        check=False,
+    ).returncode != 0
+    if not changed:
+        typer.echo("No rendered GitHub Pages changes to commit.")
+        return
+
+    subprocess.run(["git", "-C", str(repo_root), "commit", "-m", message], check=True)
+    subprocess.run(["git", "-C", str(repo_root), "push", remote, "HEAD"], check=True)

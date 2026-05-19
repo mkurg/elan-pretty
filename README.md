@@ -111,7 +111,7 @@ The normalized segment shape is:
 
 The HTML uses:
 
-- CSS Grid inside word groups to align morphemes with glosses
+- word-level alignment with Leipzig-style word-internal morpheme/gloss strings
 - flexible wrapping for long examples and long glosses
 - `dir="auto"` and Unicode bidi-aware direction inference for RTL scripts
 - small caps for gloss abbreviations
@@ -138,6 +138,37 @@ Useful options:
 
 `INPUT` may be one `.eaf` file or a directory. Directories are searched
 recursively for `.eaf` files.
+
+## GitHub Pages Publishing
+
+Render a public GitHub Pages publication folder:
+
+```bash
+python main.py pear_harikumarigurung_05082025_post.eaf published \
+  --config config/sample.tiers.yaml \
+  --github-pages \
+  --pdf
+```
+
+This writes:
+
+- `published/index.html`
+- `published/<document-slug>/index.html`
+- `published/<document-slug>/<document-slug>.json`
+- `published/<document-slug>/<document-slug>.pdf`
+
+If the repository remote is on GitHub, the CLI prints the inferred public Pages
+URL. To publish and push in one command:
+
+```bash
+python main.py input.eaf published \
+  --config tiers.yaml \
+  --github-pages \
+  --pdf \
+  --commit-and-push
+```
+
+GitHub Pages should be configured to deploy from branch `main`, folder `/root`.
 
 ## Robustness Notes
 

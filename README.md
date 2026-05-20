@@ -129,6 +129,10 @@ python main.py INPUT OUTPUT_DIR [options]
 Useful options:
 
 - `--config config/sample.tiers.yaml`
+- `--auto-detect-tiers`
+- `--suggest-tiers`
+- `--mapping-profile gurung-w4r`
+- `--save-mapping "Project Name"`
 - `--pdf`
 - `--pdf-backend auto|weasyprint|chromium`
 - `--audio-links`
@@ -169,6 +173,53 @@ python main.py input.eaf published \
 ```
 
 GitHub Pages should be configured to deploy from branch `main`, folder `/root`.
+
+## Tier Detection and Saved Mappings
+
+For a quick inventory plus a suggested role mapping:
+
+```bash
+python main.py input.eaf output --suggest-tiers --auto-detect-tiers
+```
+
+Saved mapping profiles live in `mappings/*.yaml` and can be reused:
+
+```bash
+python main.py input.eaf published \
+  --mapping-profile gurung-w4r \
+  --github-pages \
+  --pdf
+```
+
+The detector is heuristic. It looks at tier names, ELAN hierarchy, annotation
+counts, linguistic type constraints, and value shapes. A saved profile wins when
+its configured tier IDs match the uploaded file well; otherwise the system falls
+back to detection.
+
+## Telegram Bot Backend
+
+Install the optional bot dependency:
+
+```bash
+pip install -e '.[bot,pdf]'
+```
+
+Run locally with long polling:
+
+```bash
+export TELEGRAM_BOT_TOKEN=123456:replace-me
+export ELAN_PRETTY_AUTO_GIT_PUSH=false
+python -m elan_pretty.bot.telegram_bot
+```
+
+The bot flow is:
+
+1. user sends an `.eaf` file
+2. bot suggests or reuses a tier mapping
+3. user replies `ok`, `ok save Name`, or corrections like `gloss=ge@A`
+4. bot renders HTML/JSON/PDF and can push the GitHub Pages output
+
+See [docs/aws_ec2_telegram.md](docs/aws_ec2_telegram.md) for EC2 deployment.
 
 ## Robustness Notes
 

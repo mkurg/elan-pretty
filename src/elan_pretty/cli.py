@@ -15,10 +15,12 @@ from elan_pretty.github_pages import (
     write_publication_index,
     write_root_redirect,
 )
+from elan_pretty.mapping_registry import MappingRegistry
 from elan_pretty.normalize import EafNormalizer
 from elan_pretty.parser import EafParser
 from elan_pretty.raw import RawEafDocument
 from elan_pretty.render import HTMLRenderer, render_pdf
+from elan_pretty.tier_detection import TierDetectionResult, suggest_tier_mapping
 from elan_pretty.utils import safe_slug
 
 
@@ -31,6 +33,31 @@ def render(
     output_dir: Path = typer.Argument(..., help="Directory for HTML, CSS, and JSON output."),
     config_path: Optional[Path] = typer.Option(
         None, "--config", "-c", help="YAML tier/render configuration."
+    ),
+    auto_detect_tiers: bool = typer.Option(
+        False,
+        "--auto-detect-tiers",
+        help="Use heuristic tier detection for each input file.",
+    ),
+    suggest_tiers: bool = typer.Option(
+        False,
+        "--suggest-tiers",
+        help="Print a heuristic tier mapping suggestion.",
+    ),
+    mapping_profile: Optional[str] = typer.Option(
+        None,
+        "--mapping-profile",
+        help="Load a saved mapping profile from --mapping-dir.",
+    ),
+    mapping_dir: Path = typer.Option(
+        Path("mappings"),
+        "--mapping-dir",
+        help="Directory containing saved mapping profile YAML files.",
+    ),
+    save_mapping: Optional[str] = typer.Option(
+        None,
+        "--save-mapping",
+        help="Save the active mapping as a reusable profile.",
     ),
     pdf: bool = typer.Option(False, "--pdf", help="Also render a PDF."),
     pdf_backend: str = typer.Option(
@@ -60,7 +87,14 @@ def render(
         None, "--commit-message", help="Commit message for --commit-and-push."
     ),
 ) -> None:
-    config = _with_cli_overrides(load_config(config_path), audio_links=audio_links, theme=theme, title=title)
+    if config_path and mapping_profile:
+        raise typer.BadParameter("Use either --config or --mapping-profile, not both")
+    config = _with_cli_overrides(
+        _load_project_config(config_path, mapping_profile, mapping_dir),
+        audio_links=audio_links,
+        theme=theme,
+        title=title,
+    )
     eaf_paths = _resolve_inputs(input_path)
     if not eaf_paths:
         raise typer.BadParameter(f"No .eaf files found at {input_path}")
@@ -80,8 +114,18 @@ def render(
         raw = parser.parse(eaf_path)
         if inspect_tiers:
             _print_tiers(raw)
+        detected = suggest_tier_mapping(raw) if (suggest_tiers or auto_detect_tiers) else None
+        if detected and suggest_tiers:
+            _print_suggested_tiers(detected)
 
-        document = EafNormalizer(raw, config).normalize()
+        active_config = config
+        if detected and auto_detect_tiers:
+            active_config = ProjectConfig(tiers=detected.mapping, render=config.render)
+        if save_mapping:
+            profile = MappingRegistry(mapping_dir).save(save_mapping, active_config, raw=raw)
+            typer.echo(f"Saved mapping profile {profile.id} to {mapping_dir}")
+
+        document = EafNormalizer(raw, active_config).normalize()
         stem = safe_slug(eaf_path.stem)
         render_dir = output_dir / stem if github_pages else output_dir
         html_stem = "index" if github_pages else stem
@@ -90,7 +134,7 @@ def render(
         json_path = render_dir / f"{stem}.json"
         json_path.write_text(document.model_dump_json(indent=2), encoding="utf-8")
 
-        html_path = renderer.write(document, render_dir, config, stem=html_stem)
+        html_path = renderer.write(document, render_dir, active_config, stem=html_stem)
         typer.echo(f"Wrote {html_path}")
         typer.echo(f"Wrote {json_path}")
 
@@ -158,6 +202,16 @@ def _with_cli_overrides(
     return ProjectConfig(tiers=config.tiers, render=RenderConfig.model_validate(render_payload))
 
 
+def _load_project_config(
+    config_path: Path | None,
+    mapping_profile: str | None,
+    mapping_dir: Path,
+) -> ProjectConfig:
+    if mapping_profile:
+        return MappingRegistry(mapping_dir).load(mapping_profile).as_config()
+    return load_config(config_path)
+
+
 def _resolve_inputs(input_path: Path) -> list[Path]:
     if input_path.is_file():
         if input_path.suffix.lower() != ".eaf":
@@ -175,6 +229,19 @@ def _print_tiers(raw: RawEafDocument) -> None:
         typer.echo(
             f"{tier.id}\t{tier.parent_ref or ''}\t"
             f"{tier.linguistic_type_ref or ''}\t{len(tier.annotations)}"
+        )
+
+
+def _print_suggested_tiers(result: TierDetectionResult) -> None:
+    typer.echo("\nSuggested tier mapping:")
+    for role in ("reference", "phrase", "words", "morphemes", "gloss", "translation"):
+        tier_id = getattr(result.mapping, role)
+        typer.echo(f"{role}\t{tier_id or ''}")
+    typer.echo(f"confidence\t{result.confidence:.0%}")
+    for suggestion in result.roles:
+        typer.echo(
+            f"reason\t{suggestion.role}\t{suggestion.tier_id}\t"
+            f"{suggestion.confidence:.0%}\t{suggestion.reason}"
         )
 
 

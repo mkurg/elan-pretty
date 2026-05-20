@@ -1,0 +1,31 @@
+id: gurung-w4r
+name: Gurung w4r
+description: Sample mapping learned from the included Pear Story EAF.
+tiers:
+  reference: ref@w4r
+  phrase: po@w4r
+  words: wd@w4r
+  morphemes: mb@w4r
+  gloss: ge@w4r
+  translation: ft@w4r
+render:
+  title: null
+  language: und
+  theme: light
+  text_direction: auto
+  show_timestamps: true
+  audio_links: false
+  collapsible_morphology: false
+  gloss_abbreviations: {}
+created_at: '2026-05-20T00:00:00+00:00'
+match:
+  tier_ids:
+  - ref@w4r
+  - po@w4r
+  - wd@w4r
+  - mb@w4r
+  - ge@w4r
+  - ft@w4r
+  tier_suffixes:
+  - w4r
+  source_file: pear_harikumarigurung_05082025_post.eaf

@@ -20,6 +20,7 @@ dependencies = [
 
 [project.optional-dependencies]
 pdf = ["weasyprint>=62"]
+bot = ["python-telegram-bot>=21"]
 test = ["pytest>=8.0"]
 dev = ["ruff>=0.5", "mypy>=1.10", "pytest>=8.0"]
 

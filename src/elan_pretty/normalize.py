@@ -140,30 +140,30 @@ class EafNormalizer:
 
         return [
             _TierBundle(tiers=bundle_tiers, speaker=label, speaker_index=index)
-            for index, (label, bundle_tiers) in enumerate(sorted(bundles.items()))
-            if bundle_tiers
+            for index, label in enumerate(labels)
+            if (bundle_tiers := bundles.get(label))
         ]
 
-    def _speaker_labels(self, role_tiers: dict[str, list[str]]) -> set[str]:
-        labels: set[str] = set()
+    def _speaker_labels(self, role_tiers: dict[str, list[str]]) -> list[str]:
+        labels: list[str] = []
         for tiers in role_tiers.values():
             if len(tiers) <= 1:
                 continue
             for tier_id in tiers:
                 label = self._speaker_label_for_tier(tier_id)
-                if label:
-                    labels.add(label)
-        return labels or {"speaker_1"}
+                if label and label not in labels:
+                    labels.append(label)
+        return labels or ["speaker_1"]
 
     def _speaker_label_for_tier(self, tier_id: str) -> str | None:
         tier = self.raw.tiers.get(tier_id)
         if tier is None:
             return None
-        if tier.participant:
-            return tier.participant
         suffix = _tier_suffix_label(tier.id)
         if suffix:
             return suffix
+        if tier.participant:
+            return tier.participant
         if tier.parent_ref and tier.parent_ref in self.raw.tiers:
             return self._speaker_label_for_tier(tier.parent_ref)
         return None

@@ -354,10 +354,7 @@ class TierDetector:
             for tier_id in raw.tier_ids()
             if _tier_base(tier_id) == primary_base and _name_score(tier_id, role) >= 0.4
         ]
-        ordered = sorted(
-            set(peers),
-            key=lambda tier_id: (_speaker_label(raw, tier_id) or "", tier_id),
-        )
+        ordered = _primary_first(primary, peers)
         if len(ordered) <= 1:
             return primary
         return ordered
@@ -387,10 +384,7 @@ def expand_mapping_for_parallel_tiers(raw: RawEafDocument, mapping: TierMapping)
                 for candidate in raw.tier_ids()
                 if _tier_base(candidate) == base and _name_score(candidate, role) >= 0.4
             )
-        ordered = sorted(
-            set(peers or configured),
-            key=lambda tier_id: (_speaker_label(raw, tier_id) or "", tier_id),
-        )
+        ordered = _primary_first(configured[0], peers or configured)
         payload[role] = ordered if len(ordered) > 1 else ordered[0]
     return TierMapping.model_validate(payload)
 
@@ -412,14 +406,19 @@ def _speaker_label(raw: RawEafDocument, tier_id: str) -> str | None:
     tier = raw.tiers.get(tier_id)
     if tier is None:
         return None
-    if tier.participant:
-        return tier.participant
     suffix = _tier_suffix_label(tier.id)
     if suffix:
         return suffix
+    if tier.participant:
+        return tier.participant
     if tier.parent_ref:
         return _speaker_label(raw, tier.parent_ref)
     return None
+
+
+def _primary_first(primary: str, tier_ids: list[str]) -> list[str]:
+    unique = list(dict.fromkeys(tier_ids))
+    return sorted(unique, key=lambda tier_id: (tier_id != primary, tier_id))
 
 
 def _tier_suffix_label(tier_id: str) -> str | None:

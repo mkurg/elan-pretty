@@ -44,6 +44,8 @@ def test_normalizes_eaf_to_interlinear_segments() -> None:
 
 def test_normalizes_multiple_speaker_tier_bundles() -> None:
     raw = EafParser().parse(TWO_SPEAKER_FIXTURE)
+    raw.tiers["ref@A"].participant = "Speaker 1"
+    raw.tiers["tx@A"].participant = "Speaker 1"
     config = ProjectConfig(
         tiers=TierMapping(
             reference=["ref@A", "ref@B"],

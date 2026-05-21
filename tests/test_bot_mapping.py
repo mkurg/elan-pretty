@@ -43,3 +43,15 @@ def test_bot_expands_saved_profile_for_parallel_speaker_tiers(tmp_path: Path) ->
     assert pending.registry_profile_id == "single-speaker"
     assert pending.mapping.reference == ["ref@A", "ref@B"]
     assert pending.mapping.phrase == ["tx@A", "tx@B"]
+
+
+def test_bot_start_text_includes_publications_index(tmp_path: Path) -> None:
+    settings = BotSettings(
+        repo_root=tmp_path,
+        work_dir=tmp_path / "bot",
+        mapping_dir=tmp_path / "mappings",
+        pages_dir=tmp_path / "published",
+    )
+    bot = ElanPrettyTelegramBot(settings)
+
+    assert "https://mkurg.github.io/elan-pretty/published/" in bot._help_text()

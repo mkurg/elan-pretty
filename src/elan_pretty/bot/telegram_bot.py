@@ -809,7 +809,7 @@ class ElanPrettyTelegramBot:
         peers = [candidate for candidate in raw.tier_ids() if _tier_base(candidate) == base]
         return sorted(
             peers,
-            key=lambda candidate: (_speaker_label(raw, candidate) or "", candidate),
+            key=lambda candidate: (candidate != tier_id, candidate),
         )
 
     def _tier_id_for_token(self, raw: RawEafDocument, token: str) -> str | None:
@@ -1031,9 +1031,22 @@ class ElanPrettyTelegramBot:
         return (
             "Send me an ELAN .eaf file. I will suggest a tier mapping, then you can use buttons "
             "to render, save the mapping, edit tiers, or choose a saved mapping.\n\n"
+            f"Public page:\n{self._publications_index_url()}\n\n"
             "You can also use /publications to remove items from the public web page.\n\n"
             "When GitHub publishing is enabled on the server, the HTML link I return is public."
         )
+
+    def _publications_index_url(self) -> str:
+        base_url = self._pages_base_url()
+        if base_url:
+            try:
+                relative = self.settings.pages_dir.resolve().relative_to(
+                    self.settings.repo_root.resolve()
+                )
+            except ValueError:
+                return base_url
+            return f"{base_url.rstrip('/')}/{relative.as_posix().strip('/')}/"
+        return "https://mkurg.github.io/elan-pretty/published/"
 
 
 def _resolve_path(value: str | None, default: Path, repo_root: Path) -> Path:
@@ -1079,11 +1092,11 @@ def _speaker_label(raw: RawEafDocument, tier_id: str) -> str | None:
     tier = raw.tiers.get(tier_id)
     if tier is None:
         return None
-    if tier.participant:
-        return tier.participant
     suffix = _tier_suffix_label(tier.id)
     if suffix:
         return suffix
+    if tier.participant:
+        return tier.participant
     if tier.parent_ref:
         return _speaker_label(raw, tier.parent_ref)
     return None

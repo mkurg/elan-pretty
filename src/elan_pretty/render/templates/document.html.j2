@@ -61,7 +61,7 @@
         <header class="example-header">
           <a class="example-number" href="#{{ segment.id }}">({{ loop.index }})</a>
           {% if segment.speaker %}
-          <span class="speaker-chip">Speaker {{ segment.speaker }}</span>
+          <span class="speaker-chip">{{ segment.speaker }}</span>
           {% endif %}
           {% if config.render.show_timestamps and segment.start_ms is not none %}
           <span class="timestamp">

@@ -23,7 +23,7 @@ from elan_pretty.publishing import (
     render_eaf_publication,
 )
 from elan_pretty.raw import RawEafDocument
-from elan_pretty.tier_detection import suggest_tier_mapping
+from elan_pretty.tier_detection import expand_mapping_for_parallel_tiers, suggest_tier_mapping
 from elan_pretty.utils import safe_slug
 
 try:
@@ -904,10 +904,10 @@ class ElanPrettyTelegramBot:
         profile_id: str | None = None
         confidence = detected.confidence
         if registry_suggestion and registry_suggestion.confidence >= 0.72:
-            mapping = registry_suggestion.profile.tiers
+            mapping = expand_mapping_for_parallel_tiers(raw, registry_suggestion.profile.tiers)
             render = registry_suggestion.profile.render
             profile_id = registry_suggestion.profile.id
-            confidence = registry_suggestion.confidence
+            confidence = max(registry_suggestion.confidence, detected.confidence)
 
         warnings = [*raw.warnings, *detected.warnings]
         if registry_suggestion and profile_id:

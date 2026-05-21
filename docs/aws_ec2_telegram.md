@@ -94,13 +94,16 @@ Those native libraries are required by WeasyPrint. If the bot reports
 `cannot load library 'libpango-1.0-0'`, install the packages above and restart
 the service.
 
-If WeasyPrint is painful on your image, use Chromium PDF instead:
+For the best-looking PDFs, use Chromium. It prints the same modern HTML/CSS
+that the browser page uses:
 
 ```bash
 sudo apt install -y chromium-browser
 ```
 
-Then set `ELAN_PRETTY_PDF_BACKEND=chromium` below.
+Then set `ELAN_PRETTY_PDF_BACKEND=chromium` below. If Chromium is not
+available on your image, `ELAN_PRETTY_PDF_BACKEND=auto` will try Chromium first
+and fall back to WeasyPrint.
 
 ## 5. Configure the Bot
 
@@ -119,7 +122,7 @@ ELAN_PRETTY_WORK_DIR=/home/ubuntu/elan-pretty/data/bot
 ELAN_PRETTY_MAPPING_DIR=/home/ubuntu/elan-pretty/mappings
 ELAN_PRETTY_PAGES_DIR=/home/ubuntu/elan-pretty/published
 ELAN_PRETTY_AUTO_GIT_PUSH=true
-ELAN_PRETTY_PDF_BACKEND=auto
+ELAN_PRETTY_PDF_BACKEND=chromium
 ```
 
 For a private bot, first start without `TELEGRAM_ALLOWED_USER_IDS`, send

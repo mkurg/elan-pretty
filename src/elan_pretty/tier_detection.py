@@ -352,9 +352,7 @@ class TierDetector:
         peers = [
             tier_id
             for tier_id in raw.tier_ids()
-            if tier_id == primary
-            or (_tier_base(tier_id) == primary_base and _name_score(tier_id, role) >= 0.4)
-            or (_name_score(tier_id, role) >= 0.92 and _shared_speaker_shape(raw, primary, tier_id))
+            if _tier_base(tier_id) == primary_base and _name_score(tier_id, role) >= 0.4
         ]
         ordered = sorted(
             set(peers),
@@ -371,6 +369,30 @@ class TierDetector:
 
 def suggest_tier_mapping(raw: RawEafDocument) -> TierDetectionResult:
     return TierDetector().suggest(raw)
+
+
+def expand_mapping_for_parallel_tiers(raw: RawEafDocument, mapping: TierMapping) -> TierMapping:
+    """Expand a saved single-speaker mapping when matching speaker tiers exist."""
+
+    payload = mapping.model_dump()
+    for role in STRUCTURAL_ROLES:
+        configured = mapping.role_tiers(role)
+        if not configured:
+            continue
+        peers: list[str] = []
+        for tier_id in configured:
+            base = _tier_base(tier_id)
+            peers.extend(
+                candidate
+                for candidate in raw.tier_ids()
+                if _tier_base(candidate) == base and _name_score(candidate, role) >= 0.4
+            )
+        ordered = sorted(
+            set(peers or configured),
+            key=lambda tier_id: (_speaker_label(raw, tier_id) or "", tier_id),
+        )
+        payload[role] = ordered if len(ordered) > 1 else ordered[0]
+    return TierMapping.model_validate(payload)
 
 
 def _children_of(raw: RawEafDocument, tier_id: str) -> list[RawTier]:
@@ -408,16 +430,6 @@ def _tier_suffix_label(tier_id: str) -> str | None:
     if len(parts) >= 2 and 0 < len(parts[-1]) <= 16:
         return parts[-1]
     return None
-
-
-def _shared_speaker_shape(raw: RawEafDocument, primary: str, candidate: str) -> bool:
-    primary_tier = raw.tiers.get(primary)
-    candidate_tier = raw.tiers.get(candidate)
-    if primary_tier is None or candidate_tier is None:
-        return False
-    if primary_tier.parent_ref is None and candidate_tier.parent_ref is None:
-        return True
-    return _tier_base(primary_tier.parent_ref or "") == _tier_base(candidate_tier.parent_ref or "")
 
 
 def _name_score(tier_id: str, role: str) -> float:

@@ -9,7 +9,7 @@ pytest.importorskip("lxml")
 from elan_pretty.config import ProjectConfig, TierMapping
 from elan_pretty.mapping_registry import MappingRegistry
 from elan_pretty.parser import EafParser
-from elan_pretty.tier_detection import suggest_tier_mapping
+from elan_pretty.tier_detection import expand_mapping_for_parallel_tiers, suggest_tier_mapping
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "minimal.eaf"
@@ -41,6 +41,27 @@ def test_suggests_parallel_speaker_tiers() -> None:
     assert suggestion.mapping.morphemes == ["mb@A", "mb@B"]
     assert suggestion.mapping.gloss == ["ge@A", "ge@B"]
     assert suggestion.mapping.translation == ["ft@A", "ft@B"]
+
+
+def test_expands_saved_single_speaker_mapping_to_parallel_tiers() -> None:
+    raw = EafParser().parse(TWO_SPEAKER_FIXTURE)
+    mapping = TierMapping(
+        reference="ref@A",
+        phrase="tx@A",
+        words="wd@A",
+        morphemes="mb@A",
+        gloss="ge@A",
+        translation="ft@A",
+    )
+
+    expanded = expand_mapping_for_parallel_tiers(raw, mapping)
+
+    assert expanded.reference == ["ref@A", "ref@B"]
+    assert expanded.phrase == ["tx@A", "tx@B"]
+    assert expanded.words == ["wd@A", "wd@B"]
+    assert expanded.morphemes == ["mb@A", "mb@B"]
+    assert expanded.gloss == ["ge@A", "ge@B"]
+    assert expanded.translation == ["ft@A", "ft@B"]
 
 
 def test_mapping_registry_saves_loads_and_scores(tmp_path: Path) -> None:

@@ -23,7 +23,8 @@ sudo apt install -y libcairo2 libpango-1.0-0 libpangocairo-1.0-0 \
 pip install -e '.[pdf]'
 ```
 
-Chromium/Chrome print-to-PDF also works when a compatible browser is available.
+Chromium/Chrome print-to-PDF gives the closest PDF match to the HTML page. In
+`auto` mode, ELAN Pretty now tries Chromium first and falls back to WeasyPrint.
 
 ## Quick Start
 

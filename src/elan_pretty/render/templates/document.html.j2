@@ -50,15 +50,19 @@
     <article class="igt-document">
       {% for segment in document.segments %}
       <section
-        class="igt-example"
+        class="igt-example{% if segment.speaker %} has-speaker speaker-{{ segment.speaker_index or 0 }}{% endif %}"
         id="{{ segment.id }}"
         dir="{{ segment.direction }}"
+        data-speaker="{{ segment.speaker or '' }}"
         data-start-ms="{{ segment.start_ms if segment.start_ms is not none else '' }}"
         data-end-ms="{{ segment.end_ms if segment.end_ms is not none else '' }}"
-        data-search="{{ segment.phrase }} {{ segment.translation or '' }} {% for word in segment.words %}{{ word.surface }} {{ word.morpheme_line }} {{ word.gloss_line }} {% for morpheme in word.morphemes %}{{ morpheme.form }} {{ morpheme.gloss or '' }} {{ morpheme.display_gloss or '' }} {% endfor %}{% endfor %}"
+        data-search="{{ segment.speaker or '' }} {{ segment.phrase }} {{ segment.translation or '' }} {% for word in segment.words %}{{ word.surface }} {{ word.morpheme_line }} {{ word.gloss_line }} {% for morpheme in word.morphemes %}{{ morpheme.form }} {{ morpheme.gloss or '' }} {{ morpheme.display_gloss or '' }} {% endfor %}{% endfor %}"
       >
         <header class="example-header">
           <a class="example-number" href="#{{ segment.id }}">({{ loop.index }})</a>
+          {% if segment.speaker %}
+          <span class="speaker-chip">Speaker {{ segment.speaker }}</span>
+          {% endif %}
           {% if config.render.show_timestamps and segment.start_ms is not none %}
           <span class="timestamp">
             {{ segment.start_ms | format_ms }}{% if segment.end_ms is not none %}-{{ segment.end_ms | format_ms }}{% endif %}

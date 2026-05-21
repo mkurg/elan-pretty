@@ -6,6 +6,8 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+TierValue = str | list[str] | None
+
 
 class TierMapping(BaseModel):
     """Configurable role-to-tier mapping.
@@ -16,20 +18,20 @@ class TierMapping(BaseModel):
 
     model_config = ConfigDict(extra="allow")
 
-    reference: str | None = None
-    phrase: str | None = None
-    words: str | None = None
-    morphemes: str | None = None
-    gloss: str | None = None
-    translation: str | None = None
+    reference: TierValue = None
+    phrase: TierValue = None
+    words: TierValue = None
+    morphemes: TierValue = None
+    gloss: TierValue = None
+    translation: TierValue = None
     metadata: dict[str, str] = Field(default_factory=dict)
 
     def configured_roles(self) -> dict[str, str]:
         roles: dict[str, str] = {}
         for role in ("reference", "phrase", "words", "morphemes", "gloss", "translation"):
-            value = getattr(self, role)
-            if value:
-                roles[role] = value
+            for index, tier_id in enumerate(self.role_tiers(role), start=1):
+                key = role if index == 1 else f"{role}[{index}]"
+                roles[key] = tier_id
 
         for role, tier_id in self.metadata.items():
             if tier_id:
@@ -40,6 +42,14 @@ class TierMapping(BaseModel):
                 roles[role] = tier_id
 
         return roles
+
+    def role_tiers(self, role: str) -> list[str]:
+        value = getattr(self, role, None)
+        if isinstance(value, str):
+            return [value] if value else []
+        if isinstance(value, list):
+            return [item for item in value if item]
+        return []
 
 
 class RenderConfig(BaseModel):

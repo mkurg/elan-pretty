@@ -13,6 +13,7 @@ from elan_pretty.tier_detection import suggest_tier_mapping
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "minimal.eaf"
+TWO_SPEAKER_FIXTURE = Path(__file__).parent / "fixtures" / "two_speakers.eaf"
 
 
 def test_suggests_minimal_eaf_mapping() -> None:
@@ -27,6 +28,19 @@ def test_suggests_minimal_eaf_mapping() -> None:
     assert suggestion.mapping.gloss == "ge"
     assert suggestion.mapping.translation == "ft"
     assert suggestion.confidence > 0.85
+
+
+def test_suggests_parallel_speaker_tiers() -> None:
+    raw = EafParser().parse(TWO_SPEAKER_FIXTURE)
+
+    suggestion = suggest_tier_mapping(raw)
+
+    assert suggestion.mapping.reference == ["ref@A", "ref@B"]
+    assert suggestion.mapping.phrase == ["tx@A", "tx@B"]
+    assert suggestion.mapping.words == ["wd@A", "wd@B"]
+    assert suggestion.mapping.morphemes == ["mb@A", "mb@B"]
+    assert suggestion.mapping.gloss == ["ge@A", "ge@B"]
+    assert suggestion.mapping.translation == ["ft@A", "ft@B"]
 
 
 def test_mapping_registry_saves_loads_and_scores(tmp_path: Path) -> None:

@@ -1,0 +1,16 @@
+tiers:
+  reference: [ref@A, ref@B]
+  phrase: [tx@A, tx@B]
+  words: [wd@A, wd@B]
+  morphemes: [mb@A, mb@B]
+  gloss: [ge@A, ge@B]
+  translation: [ft@A, ft@B]
+render:
+  title: Two-speaker interlinear text
+  language: und
+  theme: light
+  text_direction: auto
+  show_timestamps: true
+  audio_links: false
+  collapsible_morphology: false
+  gloss_abbreviations: {}

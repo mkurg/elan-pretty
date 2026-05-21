@@ -59,6 +59,19 @@ tiers:
   translation: ft@w4r
 ```
 
+For multi-speaker files, provide parallel tier lists. ELAN Pretty will merge the
+speaker bundles by timestamp and color-code speakers in HTML/PDF:
+
+```yaml
+tiers:
+  reference: [ref@A, ref@B]
+  phrase: [tx@A, tx@B]
+  words: [wd@A, wd@B]
+  morphemes: [mb@A, mb@B]
+  gloss: [ge@A, ge@B]
+  translation: [ft@A, ft@B]
+```
+
 The `reference` tier is optional but useful when timestamps live on a parent
 tier. The normalizer groups annotations by their nearest time-aligned ancestor,
 so sibling tiers such as source text and free translation still align correctly.
@@ -112,6 +125,7 @@ The normalized segment shape is:
 The HTML uses:
 
 - word-level alignment with Leipzig-style word-internal morpheme/gloss strings
+- merged multi-speaker timelines with speaker color-coding
 - flexible wrapping for long examples and long glosses
 - `dir="auto"` and Unicode bidi-aware direction inference for RTL scripts
 - small caps for gloss abbreviations

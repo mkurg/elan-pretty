@@ -1,12 +1,24 @@
 from __future__ import annotations
 
+import re
 from collections import defaultdict
+from dataclasses import dataclass
 from pathlib import Path
 
 from elan_pretty.config import ProjectConfig
 from elan_pretty.models import InterlinearDocument, Morpheme, Segment, TextDirection, TierInfo, Word
 from elan_pretty.raw import RawAnnotation, RawEafDocument
 from elan_pretty.utils import infer_text_direction
+
+
+STRUCTURAL_ROLES = ("reference", "phrase", "words", "morphemes", "gloss", "translation")
+
+
+@dataclass(frozen=True, slots=True)
+class _TierBundle:
+    tiers: dict[str, str]
+    speaker: str | None = None
+    speaker_index: int | None = None
 
 
 class EafNormalizer:
@@ -27,11 +39,19 @@ class EafNormalizer:
         document.tiers = self._tier_infos()
         document.warnings = [*self.raw.warnings, *self._validate_configured_tiers()]
 
+        segment_candidates: list[tuple[Segment, RawAnnotation]] = []
+        for bundle in self._tier_bundles():
+            for candidate in self._segment_candidates(bundle):
+                segment = self._build_segment(candidate, bundle)
+                if segment is not None:
+                    segment_candidates.append((segment, candidate))
+
         segments: list[Segment] = []
-        for index, candidate in enumerate(self._segment_candidates(), start=1):
-            segment = self._build_segment(index, candidate)
-            if segment is not None:
-                segments.append(segment)
+        for index, (segment, _candidate) in enumerate(
+            sorted(segment_candidates, key=self._segment_sort_key),
+            start=1,
+        ):
+            segments.append(segment.model_copy(update={"id": f"segment_{index:04d}"}))
 
         if not segments:
             document.warnings.append(
@@ -74,7 +94,8 @@ class EafNormalizer:
                     f"Available tiers: {available}"
                 )
         if not any(
-            self._role_tier(role) for role in ("phrase", "reference", "words", "translation")
+            self.config.tiers.role_tiers(role)
+            for role in ("phrase", "reference", "words", "translation")
         ):
             warnings.append(
                 "No segment-bearing tier is configured. Configure at least phrase, reference, "
@@ -82,9 +103,74 @@ class EafNormalizer:
             )
         return warnings
 
-    def _segment_candidates(self) -> list[RawAnnotation]:
-        phrase_tier = self._role_tier("phrase")
-        reference_tier = self._role_tier("reference")
+    def _tier_bundles(self) -> list[_TierBundle]:
+        role_tiers = {role: self.config.tiers.role_tiers(role) for role in STRUCTURAL_ROLES}
+        multi_speaker = any(len(tiers) > 1 for tiers in role_tiers.values())
+        if not multi_speaker:
+            tiers = {role: tiers[0] for role, tiers in role_tiers.items() if tiers}
+            return [_TierBundle(tiers=tiers)]
+
+        labels = self._speaker_labels(role_tiers)
+        bundles: dict[str, dict[str, str]] = {label: {} for label in labels}
+        for role, tiers in role_tiers.items():
+            if not tiers:
+                continue
+            if len(tiers) == 1:
+                label = self._speaker_label_for_tier(tiers[0])
+                if label in bundles:
+                    bundles[label][role] = tiers[0]
+                else:
+                    for bundle in bundles.values():
+                        bundle[role] = tiers[0]
+                continue
+
+            for tier_id in tiers:
+                label = self._speaker_label_for_tier(tier_id)
+                if label is None:
+                    self._warn_once(
+                        f"speaker-label:{tier_id}",
+                        f"Could not infer speaker label for tier {tier_id}; using shared tier.",
+                    )
+                    for bundle in bundles.values():
+                        bundle[role] = tier_id
+                    continue
+                if label not in bundles:
+                    bundles[label] = {}
+                bundles[label][role] = tier_id
+
+        return [
+            _TierBundle(tiers=bundle_tiers, speaker=label, speaker_index=index)
+            for index, (label, bundle_tiers) in enumerate(sorted(bundles.items()))
+            if bundle_tiers
+        ]
+
+    def _speaker_labels(self, role_tiers: dict[str, list[str]]) -> set[str]:
+        labels: set[str] = set()
+        for tiers in role_tiers.values():
+            if len(tiers) <= 1:
+                continue
+            for tier_id in tiers:
+                label = self._speaker_label_for_tier(tier_id)
+                if label:
+                    labels.add(label)
+        return labels or {"speaker_1"}
+
+    def _speaker_label_for_tier(self, tier_id: str) -> str | None:
+        tier = self.raw.tiers.get(tier_id)
+        if tier is None:
+            return None
+        if tier.participant:
+            return tier.participant
+        suffix = _tier_suffix_label(tier.id)
+        if suffix:
+            return suffix
+        if tier.parent_ref and tier.parent_ref in self.raw.tiers:
+            return self._speaker_label_for_tier(tier.parent_ref)
+        return None
+
+    def _segment_candidates(self, bundle: _TierBundle) -> list[RawAnnotation]:
+        phrase_tier = self._role_tier("phrase", bundle)
+        reference_tier = self._role_tier("reference", bundle)
 
         if phrase_tier:
             return self._sort_annotations(self.raw.annotations_on_tier(phrase_tier))
@@ -94,7 +180,7 @@ class EafNormalizer:
 
         configured_tiers = [
             tier_id
-            for tier_id in self.config.tiers.configured_roles().values()
+            for tier_id in bundle.tiers.values()
             if tier_id in self.raw.tiers
         ]
         anchors: set[str] = set()
@@ -110,7 +196,7 @@ class EafNormalizer:
             if anchor_id in self.raw.annotations_by_id
         )
 
-    def _build_segment(self, index: int, candidate: RawAnnotation) -> Segment | None:
+    def _build_segment(self, candidate: RawAnnotation, bundle: _TierBundle) -> Segment | None:
         anchor_id = self._anchor_id(candidate)
         if anchor_id is None:
             self._warn_once(
@@ -121,9 +207,9 @@ class EafNormalizer:
 
         anchor = self.raw.annotations_by_id.get(anchor_id)
         segment_warnings: list[str] = []
-        phrase = self._phrase_for(candidate, anchor_id)
-        translation = self._first_text_for_role(anchor_id, "translation")
-        words = self._words_for(anchor_id, candidate, segment_warnings)
+        phrase = self._phrase_for(candidate, anchor_id, bundle)
+        translation = self._first_text_for_role(anchor_id, "translation", bundle)
+        words = self._words_for(anchor_id, candidate, bundle, segment_warnings)
         if not phrase:
             phrase = " ".join(word.surface for word in words if word.surface)
         if not words and phrase:
@@ -142,9 +228,11 @@ class EafNormalizer:
             )
 
         return Segment(
-            id=f"segment_{index:04d}",
+            id="segment_0000",
             source_annotation_id=candidate.id,
             anchor_annotation_id=anchor_id,
+            speaker=bundle.speaker,
+            speaker_index=bundle.speaker_index,
             start_ms=anchor.start_ms if anchor else None,
             end_ms=anchor.end_ms if anchor else None,
             phrase=phrase,
@@ -155,8 +243,8 @@ class EafNormalizer:
             warnings=segment_warnings,
         )
 
-    def _phrase_for(self, candidate: RawAnnotation, anchor_id: str) -> str:
-        phrase_tier = self._role_tier("phrase")
+    def _phrase_for(self, candidate: RawAnnotation, anchor_id: str, bundle: _TierBundle) -> str:
+        phrase_tier = self._role_tier("phrase", bundle)
         if phrase_tier and candidate.tier_id == phrase_tier:
             return candidate.value
         if phrase_tier:
@@ -169,14 +257,15 @@ class EafNormalizer:
         self,
         anchor_id: str,
         candidate: RawAnnotation,
+        bundle: _TierBundle,
         segment_warnings: list[str],
     ) -> list[Word]:
-        word_tier = self._role_tier("words")
+        word_tier = self._role_tier("words", bundle)
         if not word_tier:
             return []
 
         word_annotations = self._annotations_for_anchor(anchor_id, word_tier)
-        phrase_tier = self._role_tier("phrase")
+        phrase_tier = self._role_tier("phrase", bundle)
         if phrase_tier and candidate.tier_id == phrase_tier:
             descendant_words = [
                 annotation
@@ -188,16 +277,17 @@ class EafNormalizer:
 
         words: list[Word] = []
         for word_annotation in self._order_chain(word_annotations):
-            words.append(self._word_from_annotation(word_annotation, segment_warnings))
+            words.append(self._word_from_annotation(word_annotation, bundle, segment_warnings))
         return words
 
     def _word_from_annotation(
         self,
         word_annotation: RawAnnotation,
+        bundle: _TierBundle,
         segment_warnings: list[str],
     ) -> Word:
-        morpheme_tier = self._role_tier("morphemes")
-        gloss_tier = self._role_tier("gloss")
+        morpheme_tier = self._role_tier("morphemes", bundle)
+        gloss_tier = self._role_tier("gloss", bundle)
         morpheme_annotations = (
             self._order_chain(self.raw.children_of(word_annotation.id, morpheme_tier))
             if morpheme_tier
@@ -253,8 +343,10 @@ class EafNormalizer:
                 metadata[role] = value
         return metadata
 
-    def _first_text_for_role(self, anchor_id: str, role: str) -> str | None:
-        tier_id = self._role_tier(role)
+    def _first_text_for_role(
+        self, anchor_id: str, role: str, bundle: _TierBundle
+    ) -> str | None:
+        tier_id = self._role_tier(role, bundle)
         if not tier_id:
             return None
         return self._first_text_on_tier(anchor_id, tier_id)
@@ -374,6 +466,15 @@ class EafNormalizer:
             ),
         )
 
+    def _segment_sort_key(self, item: tuple[Segment, RawAnnotation]) -> tuple[bool, int, int, int]:
+        segment, candidate = item
+        return (
+            segment.start_ms is None,
+            segment.start_ms if segment.start_ms is not None else 10**18,
+            segment.end_ms if segment.end_ms is not None else 10**18,
+            candidate.order,
+        )
+
     def _is_descendant_of(self, annotation: RawAnnotation, ancestor_id: str) -> bool:
         current = annotation
         seen: set[str] = set()
@@ -394,8 +495,8 @@ class EafNormalizer:
             if token
         ]
 
-    def _role_tier(self, role: str) -> str | None:
-        tier_id = getattr(self.config.tiers, role, None)
+    def _role_tier(self, role: str, bundle: _TierBundle) -> str | None:
+        tier_id = bundle.tiers.get(role)
         if isinstance(tier_id, str) and tier_id in self.raw.tiers:
             return tier_id
         return None
@@ -405,3 +506,13 @@ class EafNormalizer:
             return
         self._warning_keys.add(key)
         self._warnings.append(message)
+
+
+def _tier_suffix_label(tier_id: str) -> str | None:
+    if "@" in tier_id:
+        suffix = tier_id.rsplit("@", 1)[-1].strip()
+        return suffix or None
+    parts = re.split(r"[:/._\-\s]+", tier_id)
+    if len(parts) >= 2 and 0 < len(parts[-1]) <= 16:
+        return parts[-1]
+    return None

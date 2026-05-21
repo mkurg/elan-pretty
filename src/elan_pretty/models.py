@@ -75,6 +75,8 @@ class Segment(BaseModel):
     id: str
     source_annotation_id: str | None = None
     anchor_annotation_id: str | None = None
+    speaker: str | None = None
+    speaker_index: int | None = None
     start_ms: int | None = None
     end_ms: int | None = None
     phrase: str = ""

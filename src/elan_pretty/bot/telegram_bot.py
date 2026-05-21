@@ -358,7 +358,7 @@ class ElanPrettyTelegramBot:
             if tier_id is None:
                 await query.edit_message_text("That tier is no longer available.")
                 return
-            self._set_pending_role(pending, role, tier_id)
+            self._set_pending_role_from_tier(pending, raw, role, tier_id)
             self._save_pending(pending)
             await query.edit_message_text(
                 self._suggestion_text(raw, pending),
@@ -783,11 +783,34 @@ class ElanPrettyTelegramBot:
     def _default_mapping_name(self, pending: PendingJob) -> str:
         return Path(pending.source_name).stem.replace("_", " ").strip() or "Telegram mapping"
 
-    def _set_pending_role(self, pending: PendingJob, role: str, tier_id: str | None) -> None:
+    def _set_pending_role(
+        self,
+        pending: PendingJob,
+        role: str,
+        tier_id: str | list[str] | None,
+    ) -> None:
         payload = pending.mapping.model_dump()
         payload[role] = tier_id
         pending.mapping = TierMapping.model_validate(payload)
         pending.registry_profile_id = None
+
+    def _set_pending_role_from_tier(
+        self,
+        pending: PendingJob,
+        raw: RawEafDocument,
+        role: str,
+        tier_id: str,
+    ) -> None:
+        peers = self._matching_parallel_tiers(raw, tier_id)
+        self._set_pending_role(pending, role, peers if len(peers) > 1 else tier_id)
+
+    def _matching_parallel_tiers(self, raw: RawEafDocument, tier_id: str) -> list[str]:
+        base = _tier_base(tier_id)
+        peers = [candidate for candidate in raw.tier_ids() if _tier_base(candidate) == base]
+        return sorted(
+            peers,
+            key=lambda candidate: (_speaker_label(raw, candidate) or "", candidate),
+        )
 
     def _tier_id_for_token(self, raw: RawEafDocument, token: str) -> str | None:
         for tier_id in raw.tier_ids():
@@ -941,7 +964,11 @@ class ElanPrettyTelegramBot:
         lines = []
         for role in ROLE_NAMES:
             tier_id = getattr(mapping, role)
-            lines.append(f"{role}: {tier_id or '-'}")
+            if isinstance(tier_id, list):
+                value = ", ".join(tier_id) if tier_id else "-"
+            else:
+                value = tier_id or "-"
+            lines.append(f"{role}: {value}")
         return "\n".join(lines)
 
     def _save_name_from_text(self, text: str) -> str | None:
@@ -1037,6 +1064,39 @@ def _allowed_user_ids(value: str | None) -> set[int] | None:
 
 def _callback_token(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()[:12]
+
+
+def _tier_base(tier_id: str) -> str:
+    if "@" in tier_id:
+        return tier_id.split("@", 1)[0].casefold()
+    parts = re.split(r"[:/._\-\s]+", tier_id)
+    if len(parts) >= 2 and 0 < len(parts[-1]) <= 16:
+        return tier_id[: -len(parts[-1])].rstrip(":/._- ").casefold()
+    return tier_id.casefold()
+
+
+def _speaker_label(raw: RawEafDocument, tier_id: str) -> str | None:
+    tier = raw.tiers.get(tier_id)
+    if tier is None:
+        return None
+    if tier.participant:
+        return tier.participant
+    suffix = _tier_suffix_label(tier.id)
+    if suffix:
+        return suffix
+    if tier.parent_ref:
+        return _speaker_label(raw, tier.parent_ref)
+    return None
+
+
+def _tier_suffix_label(tier_id: str) -> str | None:
+    if "@" in tier_id:
+        suffix = tier_id.rsplit("@", 1)[-1].strip()
+        return suffix or None
+    parts = re.split(r"[:/._\-\s]+", tier_id)
+    if len(parts) >= 2 and 0 < len(parts[-1]) <= 16:
+        return parts[-1]
+    return None
 
 
 def main() -> None:

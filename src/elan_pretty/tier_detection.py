@@ -75,14 +75,7 @@ class TierDetector:
                 suggestions[role] = suggestion
                 used.add(suggestion.tier_id)
 
-        mapping = TierMapping(
-            reference=self._role_tier(suggestions, "reference"),
-            phrase=self._role_tier(suggestions, "phrase"),
-            words=self._role_tier(suggestions, "words"),
-            morphemes=self._role_tier(suggestions, "morphemes"),
-            gloss=self._role_tier(suggestions, "gloss"),
-            translation=self._role_tier(suggestions, "translation"),
-        )
+        mapping = self._expanded_mapping(raw, suggestions)
         role_list = [suggestions[role] for role in STRUCTURAL_ROLES if role in suggestions]
         confidence = self._overall_confidence(role_list)
         warnings = self._warnings(role_list)
@@ -337,6 +330,40 @@ class TierDetector:
                 )
         return warnings
 
+    def _expanded_mapping(
+        self, raw: RawEafDocument, suggestions: dict[str, RoleSuggestion]
+    ) -> TierMapping:
+        return TierMapping(
+            reference=self._role_value(raw, suggestions, "reference"),
+            phrase=self._role_value(raw, suggestions, "phrase"),
+            words=self._role_value(raw, suggestions, "words"),
+            morphemes=self._role_value(raw, suggestions, "morphemes"),
+            gloss=self._role_value(raw, suggestions, "gloss"),
+            translation=self._role_value(raw, suggestions, "translation"),
+        )
+
+    def _role_value(
+        self, raw: RawEafDocument, suggestions: dict[str, RoleSuggestion], role: str
+    ) -> str | list[str] | None:
+        primary = self._role_tier(suggestions, role)
+        if primary is None:
+            return None
+        primary_base = _tier_base(primary)
+        peers = [
+            tier_id
+            for tier_id in raw.tier_ids()
+            if tier_id == primary
+            or (_tier_base(tier_id) == primary_base and _name_score(tier_id, role) >= 0.4)
+            or (_name_score(tier_id, role) >= 0.92 and _shared_speaker_shape(raw, primary, tier_id))
+        ]
+        ordered = sorted(
+            set(peers),
+            key=lambda tier_id: (_speaker_label(raw, tier_id) or "", tier_id),
+        )
+        if len(ordered) <= 1:
+            return primary
+        return ordered
+
     def _role_tier(self, suggestions: dict[str, RoleSuggestion], role: str) -> str | None:
         suggestion = suggestions.get(role)
         return suggestion.tier_id if suggestion else None
@@ -348,6 +375,49 @@ def suggest_tier_mapping(raw: RawEafDocument) -> TierDetectionResult:
 
 def _children_of(raw: RawEafDocument, tier_id: str) -> list[RawTier]:
     return [tier for tier in raw.tiers.values() if tier.parent_ref == tier_id]
+
+
+def _tier_base(tier_id: str) -> str:
+    if "@" in tier_id:
+        return tier_id.split("@", 1)[0].casefold()
+    parts = re.split(r"[:/._\-\s]+", tier_id)
+    if len(parts) >= 2 and 0 < len(parts[-1]) <= 16:
+        return tier_id[: -len(parts[-1])].rstrip(":/._- ").casefold()
+    return tier_id.casefold()
+
+
+def _speaker_label(raw: RawEafDocument, tier_id: str) -> str | None:
+    tier = raw.tiers.get(tier_id)
+    if tier is None:
+        return None
+    if tier.participant:
+        return tier.participant
+    suffix = _tier_suffix_label(tier.id)
+    if suffix:
+        return suffix
+    if tier.parent_ref:
+        return _speaker_label(raw, tier.parent_ref)
+    return None
+
+
+def _tier_suffix_label(tier_id: str) -> str | None:
+    if "@" in tier_id:
+        suffix = tier_id.rsplit("@", 1)[-1].strip()
+        return suffix or None
+    parts = re.split(r"[:/._\-\s]+", tier_id)
+    if len(parts) >= 2 and 0 < len(parts[-1]) <= 16:
+        return parts[-1]
+    return None
+
+
+def _shared_speaker_shape(raw: RawEafDocument, primary: str, candidate: str) -> bool:
+    primary_tier = raw.tiers.get(primary)
+    candidate_tier = raw.tiers.get(candidate)
+    if primary_tier is None or candidate_tier is None:
+        return False
+    if primary_tier.parent_ref is None and candidate_tier.parent_ref is None:
+        return True
+    return _tier_base(primary_tier.parent_ref or "") == _tier_base(candidate_tier.parent_ref or "")
 
 
 def _name_score(tier_id: str, role: str) -> float:

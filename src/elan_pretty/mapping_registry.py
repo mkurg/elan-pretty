@@ -145,8 +145,8 @@ class MappingRegistry:
             "gloss": 0.18,
             "translation": 0.14,
         }
-        possible = sum(role_weights.get(role, 0.08) for role in configured)
-        matched = sum(role_weights.get(role, 0.08) for role in present_roles)
+        possible = sum(role_weights.get(_base_role(role), 0.08) for role in configured)
+        matched = sum(role_weights.get(_base_role(role), 0.08) for role in present_roles)
         role_score = matched / possible if possible else 0.0
 
         raw_tier_ids = set(raw.tier_ids())
@@ -175,7 +175,9 @@ class MappingRegistry:
     def _match_hints(
         self, raw: RawEafDocument | None, config: ProjectConfig
     ) -> MappingMatchHints:
-        tier_ids = sorted(raw.tier_ids()) if raw else sorted(config.tiers.configured_roles().values())
+        tier_ids = (
+            sorted(raw.tier_ids()) if raw else sorted(config.tiers.configured_roles().values())
+        )
         suffixes = sorted({_tier_suffix(tier_id) for tier_id in tier_ids if _tier_suffix(tier_id)})
         return MappingMatchHints(
             tier_ids=tier_ids,
@@ -196,6 +198,10 @@ def _tier_suffix(tier_id: str) -> str | None:
         return None
     suffix = tier_id.rsplit("@", 1)[-1].strip()
     return suffix or None
+
+
+def _base_role(role: str) -> str:
+    return role.split("[", 1)[0]
 
 
 def _suffix_overlap(raw_tier_ids: set[str], profile_suffixes: set[str]) -> float:

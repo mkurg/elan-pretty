@@ -178,6 +178,10 @@ When rendering succeeds, the bot sends:
 - a PDF file,
 - any parser/normalizer warnings.
 
+For files with parallel speaker tiers such as `tx@A` and `tx@B`, the bot
+suggests both tiers for the same role and the rendered page color-codes each
+speaker.
+
 Use `/publications` to list items currently on the public page. Tap
 `Remove: ...`, then confirm. The bot deletes that publication folder, rebuilds
 `published/index.html`, and pushes the change when `ELAN_PRETTY_AUTO_GIT_PUSH`

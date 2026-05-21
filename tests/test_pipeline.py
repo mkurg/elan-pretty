@@ -12,6 +12,7 @@ from elan_pretty.parser import EafParser
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "minimal.eaf"
+TWO_SPEAKER_FIXTURE = Path(__file__).parent / "fixtures" / "two_speakers.eaf"
 
 
 def test_normalizes_eaf_to_interlinear_segments() -> None:
@@ -39,6 +40,28 @@ def test_normalizes_eaf_to_interlinear_segments() -> None:
     assert [word.surface for word in segment.words] == ["tsa", "mi"]
     assert segment.words[0].morphemes[0].gloss == "DIST"
     assert segment.words[1].morphemes[0].gloss == "man"
+
+
+def test_normalizes_multiple_speaker_tier_bundles() -> None:
+    raw = EafParser().parse(TWO_SPEAKER_FIXTURE)
+    config = ProjectConfig(
+        tiers=TierMapping(
+            reference=["ref@A", "ref@B"],
+            phrase=["tx@A", "tx@B"],
+            words=["wd@A", "wd@B"],
+            morphemes=["mb@A", "mb@B"],
+            gloss=["ge@A", "ge@B"],
+            translation=["ft@A", "ft@B"],
+        )
+    )
+
+    document = EafNormalizer(raw, config).normalize()
+
+    assert [segment.speaker for segment in document.segments] == ["A", "B"]
+    assert [segment.speaker_index for segment in document.segments] == [0, 1]
+    assert [segment.phrase for segment in document.segments] == ["tsa mi", "nu ko"]
+    assert document.segments[1].translation == "I went"
+    assert document.segments[1].words[0].morphemes[0].gloss == "1SG"
 
 
 def test_display_gloss_mirrors_leipzig_boundaries() -> None:

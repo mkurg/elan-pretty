@@ -236,7 +236,8 @@ def _print_suggested_tiers(result: TierDetectionResult) -> None:
     typer.echo("\nSuggested tier mapping:")
     for role in ("reference", "phrase", "words", "morphemes", "gloss", "translation"):
         tier_id = getattr(result.mapping, role)
-        typer.echo(f"{role}\t{tier_id or ''}")
+        value = ", ".join(tier_id) if isinstance(tier_id, list) else tier_id or ""
+        typer.echo(f"{role}\t{value}")
     typer.echo(f"confidence\t{result.confidence:.0%}")
     for suggestion in result.roles:
         typer.echo(

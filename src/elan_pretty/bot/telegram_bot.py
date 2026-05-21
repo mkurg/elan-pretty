@@ -54,6 +54,10 @@ except ImportError:  # pragma: no cover - optional dependency entry point.
 
 
 ROLE_NAMES = ("reference", "phrase", "words", "morphemes", "gloss", "translation")
+GITHUB_PAGES_DELAY_NOTE = (
+    "If the HTML link does not open immediately, wait a minute or two. "
+    "GitHub Pages publishes asynchronously."
+)
 ASSIGNMENT_RE = re.compile(
     r"\b(reference|phrase|words|morphemes|gloss|translation)\s*=\s*([^\s,;]+)",
     re.IGNORECASE,
@@ -616,6 +620,7 @@ class ElanPrettyTelegramBot:
             lines.append(f"Saved mapping: {saved_profile.id}")
         if rendered.public_url:
             lines.append(f"HTML: {rendered.public_url}")
+            lines.append(GITHUB_PAGES_DELAY_NOTE)
         else:
             lines.append(f"HTML path: {rendered.html_path}")
         if self.settings.auto_git_push:

@@ -6,7 +6,11 @@ import pytest
 
 pytest.importorskip("lxml")
 
-from elan_pretty.bot.telegram_bot import BotSettings, ElanPrettyTelegramBot
+from elan_pretty.bot.telegram_bot import (
+    BotSettings,
+    ElanPrettyTelegramBot,
+    GITHUB_PAGES_DELAY_NOTE,
+)
 from elan_pretty.config import ProjectConfig, TierMapping
 from elan_pretty.parser import EafParser
 
@@ -55,3 +59,7 @@ def test_bot_start_text_includes_publications_index(tmp_path: Path) -> None:
     bot = ElanPrettyTelegramBot(settings)
 
     assert "https://mkurg.github.io/elan-pretty/published/" in bot._help_text()
+
+
+def test_bot_publish_delay_note_mentions_github_pages() -> None:
+    assert "GitHub Pages publishes asynchronously" in GITHUB_PAGES_DELAY_NOTE

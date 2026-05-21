@@ -18,6 +18,8 @@ pip install -e .
 For WeasyPrint PDF support:
 
 ```bash
+sudo apt install -y libcairo2 libpango-1.0-0 libpangocairo-1.0-0 \
+  libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
 pip install -e '.[pdf]'
 ```
 

@@ -73,12 +73,26 @@ Make sure GitHub Pages is configured for branch `main`, folder `/root`.
 
 ```bash
 sudo apt update
-sudo apt install -y git python3.12 python3.12-venv python3-pip
+sudo apt install -y \
+  git \
+  python3.12 \
+  python3.12-venv \
+  python3-pip \
+  libcairo2 \
+  libpango-1.0-0 \
+  libpangocairo-1.0-0 \
+  libgdk-pixbuf2.0-0 \
+  libffi-dev \
+  shared-mime-info
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -U pip
 pip install -e '.[bot,pdf]'
 ```
+
+Those native libraries are required by WeasyPrint. If the bot reports
+`cannot load library 'libpango-1.0-0'`, install the packages above and restart
+the service.
 
 If WeasyPrint is painful on your image, use Chromium PDF instead:
 

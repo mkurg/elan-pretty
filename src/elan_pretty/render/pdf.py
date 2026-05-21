@@ -9,20 +9,31 @@ def render_pdf(html_path: Path, pdf_path: Path, backend: str = "auto") -> Path:
     """Print HTML to PDF with WeasyPrint or a headless Chromium-compatible browser."""
 
     pdf_path.parent.mkdir(parents=True, exist_ok=True)
+    last_error: Exception | None = None
 
     if backend in {"auto", "weasyprint"}:
         try:
             from weasyprint import HTML
-        except ImportError:
+        except ImportError as exc:
+            last_error = exc
             if backend == "weasyprint":
                 msg = "WeasyPrint is not installed. Install with: pip install 'elan-pretty[pdf]'"
-                raise RuntimeError(msg) from None
+                raise RuntimeError(msg) from exc
         else:
-            HTML(filename=str(html_path)).write_pdf(str(pdf_path))
-            return pdf_path
+            try:
+                HTML(filename=str(html_path)).write_pdf(str(pdf_path))
+            except Exception as exc:
+                last_error = exc
+                if backend == "weasyprint":
+                    msg = (
+                        "WeasyPrint could not render PDF. On Debian/Ubuntu, install its "
+                        "native Pango/Cairo dependencies or use --pdf-backend chromium."
+                    )
+                    raise RuntimeError(msg) from exc
+            else:
+                return pdf_path
 
     if backend in {"auto", "chromium"}:
-        last_error: Exception | None = None
         for browser in _chromium_candidates():
             try:
                 subprocess.run(
@@ -49,7 +60,7 @@ def render_pdf(html_path: Path, pdf_path: Path, backend: str = "auto") -> Path:
             raise RuntimeError(msg)
 
     msg = "Could not render PDF: install WeasyPrint or make Chromium/Chrome available."
-    if "last_error" in locals() and last_error is not None:
+    if last_error is not None:
         msg = f"{msg} Last attempted browser failed: {last_error}."
     raise RuntimeError(msg)
 

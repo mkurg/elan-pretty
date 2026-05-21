@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import shutil
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -30,6 +31,14 @@ class RenderedPublication:
     public_url: str | None
     index_path: Path | None = None
     root_index_path: Path | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class RemovedPublication:
+    slug: str
+    removed_path: Path
+    index_path: Path
+    root_index_path: Path | None
 
 
 def render_eaf_publication(
@@ -124,6 +133,43 @@ def write_document_publication(
         json_path=json_path,
         pdf_path=pdf_path,
         public_url=public_url,
+        index_path=index_path,
+        root_index_path=root_index_path,
+    )
+
+
+def remove_github_publication(
+    output_dir: Path,
+    slug: str,
+    *,
+    repo_root: Path | None = None,
+    pages_base_url: str | None = None,
+) -> RemovedPublication:
+    """Remove one GitHub Pages publication directory and rebuild the site index."""
+
+    if not slug or slug != Path(slug).name:
+        msg = f"Invalid publication slug: {slug!r}"
+        raise ValueError(msg)
+
+    site_root = output_dir.resolve()
+    publication_dir = (output_dir / slug).resolve()
+    if publication_dir.parent != site_root:
+        msg = f"Publication slug escapes site root: {slug!r}"
+        raise ValueError(msg)
+    if not publication_dir.exists() or not publication_dir.is_dir():
+        msg = f"No publication exists for slug: {slug}"
+        raise ValueError(msg)
+
+    shutil.rmtree(publication_dir)
+    remaining = discover_publications(output_dir, repo_root=repo_root, base_url=pages_base_url)
+    index_path = write_publication_index(output_dir, remaining)
+    root_index_path: Path | None = None
+    if repo_root is not None:
+        target = output_dir.resolve().relative_to(repo_root.resolve()).as_posix() + "/"
+        root_index_path = write_root_redirect(repo_root, target)
+    return RemovedPublication(
+        slug=slug,
+        removed_path=publication_dir,
         index_path=index_path,
         root_index_path=root_index_path,
     )

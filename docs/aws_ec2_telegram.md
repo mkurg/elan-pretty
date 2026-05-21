@@ -18,6 +18,7 @@ The backend also sets these runtime commands when it starts:
 start - Show bot overview
 whoami - Show your Telegram user ID
 mappings - List saved tier mappings
+publications - List and remove web publications
 use - Use a saved mapping for the pending file
 cancel - Cancel the pending file
 help - Show usage help
@@ -163,19 +164,9 @@ journalctl -u elan-pretty-bot -f
 
 1. Send an `.eaf` file to the bot.
 2. The bot suggests a tier mapping.
-3. Reply:
-
-```text
-ok
-```
-
-or save the mapping for future files:
-
-```text
-ok save Gurung w4r
-```
-
-or correct the mapping:
+3. Tap `Render now`, `Save mapping and render`, `Edit mapping`, or
+   `Saved mappings`.
+4. If you need a fine correction, you can still type:
 
 ```text
 words=wd@A morphemes=mb@A gloss=ge@A translation=ft@A
@@ -187,8 +178,35 @@ When rendering succeeds, the bot sends:
 - a PDF file,
 - any parser/normalizer warnings.
 
+Use `/publications` to list items currently on the public page. Tap
+`Remove: ...`, then confirm. The bot deletes that publication folder, rebuilds
+`published/index.html`, and pushes the change when `ELAN_PRETTY_AUTO_GIT_PUSH`
+is true.
+
 Saved mappings are YAML files in `mappings/`. The bot scores them against new
 uploads before falling back to heuristic tier detection.
+
+## Updating the App While the Service Is Running
+
+You can pull code while the bot is still running. The running process keeps the
+old Python code until you restart the service.
+
+```bash
+ssh -i elan-pretty-ec2.pem ubuntu@EC2_PUBLIC_IP
+cd /home/ubuntu/elan-pretty
+git status --short
+git pull --ff-only
+source .venv/bin/activate
+pip install -e '.[bot,pdf]'
+sudo systemctl restart elan-pretty-bot
+sudo systemctl status elan-pretty-bot --no-pager
+journalctl -u elan-pretty-bot -f
+```
+
+If `git status --short` shows local generated output and
+`ELAN_PRETTY_AUTO_GIT_PUSH=false`, commit or remove those local changes before
+pulling. If auto-push is enabled, the bot should normally leave the EC2 checkout
+clean after each publication.
 
 ## Operational Notes
 
@@ -198,5 +216,5 @@ uploads before falling back to heuristic tier detection.
   behind a domain and HTTPS, the Telegram adapter can be moved to webhooks.
 - If `ELAN_PRETTY_AUTO_GIT_PUSH=false`, the bot still renders locally but the
   public link will not update until you commit and push from EC2.
-- Mapping learning is explicit. The bot remembers mappings only when you reply
-  `ok save Name`.
+- Mapping learning is explicit. The bot remembers mappings only when you tap
+  `Save mapping and render`.

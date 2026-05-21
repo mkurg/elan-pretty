@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import os
 import re
 import traceback
@@ -12,11 +13,13 @@ from uuid import uuid4
 from pydantic import BaseModel, Field
 
 from elan_pretty.config import ProjectConfig, RenderConfig, TierMapping
+from elan_pretty.github_pages import discover_publications
 from elan_pretty.mapping_registry import MappingProfile, MappingRegistry
 from elan_pretty.parser import EafParser
 from elan_pretty.publishing import (
     commit_and_push_paths,
     infer_pages_base_url,
+    remove_github_publication,
     render_eaf_publication,
 )
 from elan_pretty.raw import RawEafDocument
@@ -24,11 +27,12 @@ from elan_pretty.tier_detection import suggest_tier_mapping
 from elan_pretty.utils import safe_slug
 
 try:
-    from telegram import BotCommand, Update
+    from telegram import BotCommand, InlineKeyboardButton, InlineKeyboardMarkup, Update
     from telegram.constants import ChatAction
     from telegram.ext import (
         Application,
         ApplicationBuilder,
+        CallbackQueryHandler,
         CommandHandler,
         ContextTypes,
         MessageHandler,
@@ -36,10 +40,13 @@ try:
     )
 except ImportError:  # pragma: no cover - optional dependency entry point.
     BotCommand = None  # type: ignore[assignment]
+    InlineKeyboardButton = None  # type: ignore[assignment]
+    InlineKeyboardMarkup = None  # type: ignore[assignment]
     Update = Any  # type: ignore[misc, assignment]
     ChatAction = None  # type: ignore[assignment]
     Application = None  # type: ignore[assignment]
     ApplicationBuilder = None  # type: ignore[assignment]
+    CallbackQueryHandler = None  # type: ignore[assignment]
     CommandHandler = None  # type: ignore[assignment]
     ContextTypes = None  # type: ignore[assignment]
     MessageHandler = None  # type: ignore[assignment]
@@ -151,8 +158,10 @@ class ElanPrettyTelegramBot:
         application.add_handler(CommandHandler("help", self.help))
         application.add_handler(CommandHandler("whoami", self.whoami))
         application.add_handler(CommandHandler("mappings", self.mappings))
+        application.add_handler(CommandHandler("publications", self.publications))
         application.add_handler(CommandHandler("use", self.use_mapping))
         application.add_handler(CommandHandler("cancel", self.cancel))
+        application.add_handler(CallbackQueryHandler(self.callback))
         application.add_handler(MessageHandler(filters.Document.ALL, self.eaf_document))
         application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.text_reply))
         application.run_polling(allowed_updates=Update.ALL_TYPES)
@@ -165,6 +174,7 @@ class ElanPrettyTelegramBot:
                 BotCommand("start", "Show bot overview"),
                 BotCommand("whoami", "Show your Telegram user ID"),
                 BotCommand("mappings", "List saved tier mappings"),
+                BotCommand("publications", "List and remove web publications"),
                 BotCommand("use", "Use a saved mapping for the pending file"),
                 BotCommand("cancel", "Cancel the pending file"),
                 BotCommand("help", "Show usage help"),
@@ -195,7 +205,11 @@ class ElanPrettyTelegramBot:
             return
         profiles = self.registry.list_profiles()
         if not profiles:
-            await self._reply(update, "No saved mappings yet. Upload an .eaf and use `ok save Name`.")
+            await self._reply(
+                update,
+                "No saved mappings yet. Upload an .eaf file, then use the "
+                "Save mapping and render button.",
+            )
             return
         lines = ["Saved mappings:"]
         for profile in profiles:
@@ -205,8 +219,209 @@ class ElanPrettyTelegramBot:
                 if not role.startswith("metadata.")
             )
             lines.append(f"- {profile.id}: {profile.name} ({roles})")
-        lines.append("\nFor a pending upload, send `/use mapping-id`.")
-        await self._reply(update, "\n".join(lines))
+        pending = self._load_pending(self._chat_id(update) or 0)
+        if pending is not None:
+            lines.append("\nTap a mapping below to use it for the pending file.")
+        await self._reply(
+            update,
+            "\n".join(lines),
+            reply_markup=self._saved_mapping_keyboard(pending),
+        )
+
+    async def publications(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        if not await self._authorized(update):
+            return
+        entries = self._publications()
+        await self._reply(
+            update,
+            self._publication_list_text(entries),
+            reply_markup=self._publication_keyboard(entries),
+        )
+
+    async def callback(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        if not await self._authorized(update):
+            return
+        query = update.callback_query
+        if query is None:
+            return
+        await query.answer()
+        data = query.data or ""
+        chat_id = self._chat_id(update)
+        if chat_id is None:
+            return
+
+        if data.startswith("render:"):
+            pending = self._pending_for_callback(chat_id, data.removeprefix("render:"))
+            if pending is None:
+                await query.edit_message_text("That pending upload is no longer available.")
+                return
+            await query.edit_message_text("Rendering now. This may take a moment.")
+            await self._render_pending(update, context, pending, save_name=None)
+            return
+
+        if data.startswith("save_render:"):
+            pending = self._pending_for_callback(chat_id, data.removeprefix("save_render:"))
+            if pending is None:
+                await query.edit_message_text("That pending upload is no longer available.")
+                return
+            await query.edit_message_text("Saving the mapping and rendering now.")
+            await self._render_pending(
+                update,
+                context,
+                pending,
+                save_name=self._default_mapping_name(pending),
+            )
+            return
+
+        if data.startswith("cancel:"):
+            pending = self._pending_for_callback(chat_id, data.removeprefix("cancel:"))
+            if pending is not None:
+                self._pending_path(chat_id).unlink(missing_ok=True)
+            await query.edit_message_text("Canceled the pending upload.")
+            return
+
+        if data.startswith("maps:"):
+            pending = self._pending_for_callback(chat_id, data.removeprefix("maps:"))
+            await query.edit_message_text(
+                "Choose a saved mapping for this file:",
+                reply_markup=self._saved_mapping_keyboard(pending),
+            )
+            return
+
+        if data.startswith("back:"):
+            pending = self._pending_for_callback(chat_id, data.removeprefix("back:"))
+            if pending is None:
+                await query.edit_message_text("That pending upload is no longer available.")
+                return
+            raw = await asyncio.to_thread(self.parser.parse, Path(pending.eaf_path))
+            await query.edit_message_text(
+                self._suggestion_text(raw, pending),
+                reply_markup=self._pending_action_keyboard(pending),
+            )
+            return
+
+        if data.startswith("map:"):
+            pending = self._load_pending(chat_id)
+            if pending is None:
+                await query.edit_message_text("No pending .eaf file. Upload one first.")
+                return
+            profile = self._profile_for_token(data.removeprefix("map:"))
+            if profile is None:
+                await query.edit_message_text("That saved mapping is no longer available.")
+                return
+            pending.mapping = profile.tiers
+            pending.render = profile.render
+            pending.registry_profile_id = profile.id
+            self._save_pending(pending)
+            raw = await asyncio.to_thread(self.parser.parse, Path(pending.eaf_path))
+            await query.edit_message_text(
+                self._suggestion_text(raw, pending),
+                reply_markup=self._pending_action_keyboard(pending),
+            )
+            return
+
+        if data.startswith("edit:"):
+            pending = self._pending_for_callback(chat_id, data.removeprefix("edit:"))
+            if pending is None:
+                await query.edit_message_text("That pending upload is no longer available.")
+                return
+            await query.edit_message_text(
+                "Choose the role you want to change:",
+                reply_markup=self._role_keyboard(pending),
+            )
+            return
+
+        if data.startswith("role:"):
+            role = data.removeprefix("role:")
+            pending = self._load_pending(chat_id)
+            if pending is None or role not in ROLE_NAMES:
+                await query.edit_message_text("No pending mapping is available.")
+                return
+            await query.edit_message_text(
+                f"Choose a tier for {role}:",
+                reply_markup=self._tier_keyboard(pending, role),
+            )
+            return
+
+        if data.startswith("set:"):
+            payload = data.split(":", 2)
+            if len(payload) != 3:
+                await query.edit_message_text("Could not read that tier choice.")
+                return
+            _, role, token = payload
+            pending = self._load_pending(chat_id)
+            if pending is None or role not in ROLE_NAMES:
+                await query.edit_message_text("No pending mapping is available.")
+                return
+            raw = await asyncio.to_thread(self.parser.parse, Path(pending.eaf_path))
+            tier_id = self._tier_id_for_token(raw, token)
+            if tier_id is None:
+                await query.edit_message_text("That tier is no longer available.")
+                return
+            self._set_pending_role(pending, role, tier_id)
+            self._save_pending(pending)
+            await query.edit_message_text(
+                self._suggestion_text(raw, pending),
+                reply_markup=self._pending_action_keyboard(pending),
+            )
+            return
+
+        if data.startswith("clear:"):
+            role = data.removeprefix("clear:")
+            pending = self._load_pending(chat_id)
+            if pending is None or role not in ROLE_NAMES:
+                await query.edit_message_text("No pending mapping is available.")
+                return
+            self._set_pending_role(pending, role, None)
+            self._save_pending(pending)
+            raw = await asyncio.to_thread(self.parser.parse, Path(pending.eaf_path))
+            await query.edit_message_text(
+                self._suggestion_text(raw, pending),
+                reply_markup=self._pending_action_keyboard(pending),
+            )
+            return
+
+        if data == "pubs":
+            entries = self._publications()
+            await query.edit_message_text(
+                self._publication_list_text(entries),
+                reply_markup=self._publication_keyboard(entries),
+            )
+            return
+
+        if data.startswith("rm:"):
+            token = data.removeprefix("rm:")
+            entry = self._publication_for_token(token)
+            if entry is None:
+                await query.edit_message_text("That web item is no longer available.")
+                return
+            await query.edit_message_text(
+                f"Remove this item from the public web page?\n\n{entry.title}\n{entry.slug}",
+                reply_markup=self._remove_confirm_keyboard(entry.slug),
+            )
+            return
+
+        if data.startswith("rmno:"):
+            entries = self._publications()
+            await query.edit_message_text(
+                self._publication_list_text(entries),
+                reply_markup=self._publication_keyboard(entries),
+            )
+            return
+
+        if data.startswith("rmok:"):
+            token = data.removeprefix("rmok:")
+            entry = self._publication_for_token(token)
+            if entry is None:
+                await query.edit_message_text("That web item is already gone.")
+                return
+            await query.edit_message_text(f"Removing {entry.title} from the web page.")
+            result_text = await self._remove_publication(entry.slug)
+            if query.message:
+                await query.message.reply_text(result_text)
+            return
+
+        await query.edit_message_text("I do not know how to handle that button anymore.")
 
     async def use_mapping(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if not await self._authorized(update):
@@ -219,7 +434,7 @@ class ElanPrettyTelegramBot:
             await self._reply(update, "No pending .eaf file. Upload one first.")
             return
         if not context.args:
-            await self._reply(update, "Send `/use mapping-id`, for example `/use gurung-w4r`.")
+            await self._reply(update, "Use /mappings, then tap one of the mapping buttons.")
             return
         try:
             profile = self.registry.load(context.args[0])
@@ -234,7 +449,8 @@ class ElanPrettyTelegramBot:
             update,
             "Using saved mapping:\n\n"
             f"{self._format_profile(profile)}\n\n"
-            "Reply `ok` to render, or adjust with pairs like `gloss=ge@A translation=ft@A`.",
+            "Tap Render now, or use Edit mapping.",
+            reply_markup=self._pending_action_keyboard(pending),
         )
 
     async def cancel(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -261,7 +477,7 @@ class ElanPrettyTelegramBot:
         document = message.document
         filename = document.file_name or "upload.eaf"
         if not filename.casefold().endswith(".eaf"):
-            await message.reply_text("Please send an ELAN `.eaf` file.")
+            await message.reply_text("Please send an ELAN .eaf file.")
             return
 
         await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
@@ -279,12 +495,18 @@ class ElanPrettyTelegramBot:
         pending = self._make_pending(chat_id, job_id, filename, target, raw)
         self._save_pending(pending)
 
-        if self.settings.auto_render and pending.detector_confidence >= self.settings.auto_render_confidence:
+        if (
+            self.settings.auto_render
+            and pending.detector_confidence >= self.settings.auto_render_confidence
+        ):
             await message.reply_text("The mapping looks very confident, so I am rendering it now.")
             await self._render_pending(update, context, pending, save_name=None)
             return
 
-        await message.reply_text(self._suggestion_text(raw, pending))
+        await message.reply_text(
+            self._suggestion_text(raw, pending),
+            reply_markup=self._pending_action_keyboard(pending),
+        )
 
     async def text_reply(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if not await self._authorized(update):
@@ -295,7 +517,7 @@ class ElanPrettyTelegramBot:
             return
         pending = self._load_pending(chat_id)
         if pending is None:
-            await message.reply_text("Upload an `.eaf` file first, then I can suggest a mapping.")
+            await message.reply_text("Upload an .eaf file first, then I can suggest a mapping.")
             return
 
         text = message.text.strip()
@@ -319,13 +541,15 @@ class ElanPrettyTelegramBot:
             await message.reply_text(
                 "Updated the pending mapping:\n\n"
                 f"{self._format_mapping(pending.mapping)}\n\n"
-                "Reply `ok` to render, or `ok save Name` to render and remember this mapping."
+                "Tap Render now, or Save mapping and render.",
+                reply_markup=self._pending_action_keyboard(pending),
             )
             return
 
         await message.reply_text(
-            "I have a pending `.eaf`. Reply `ok`, `ok save Name`, or corrections like "
-            "`words=wd@A morphemes=mb@A gloss=ge@A`."
+            "I have a pending .eaf file. Use the buttons below, or type corrections like "
+            "words=wd@A morphemes=mb@A gloss=ge@A.",
+            reply_markup=self._pending_action_keyboard(pending),
         )
 
     async def _render_pending(
@@ -401,7 +625,12 @@ class ElanPrettyTelegramBot:
         if rendered.document.warnings:
             warning_preview = "\n".join(rendered.document.warnings[:5])
             lines.append(f"\nWarnings:\n{warning_preview}")
-        await message.reply_text("\n".join(lines))
+        await message.reply_text(
+            "\n".join(lines),
+            reply_markup=self._rendered_publication_keyboard(
+                rendered.publication.slug if rendered.publication else None
+            ),
+        )
 
         if rendered.pdf_path and rendered.pdf_path.exists():
             await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_DOCUMENT)
@@ -413,6 +642,228 @@ class ElanPrettyTelegramBot:
                 )
 
         self._pending_path(chat_id).unlink(missing_ok=True)
+
+    def _pending_action_keyboard(self, pending: PendingJob) -> Any | None:
+        if InlineKeyboardButton is None or InlineKeyboardMarkup is None:
+            return None
+        return InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("Render now", callback_data=f"render:{pending.job_id}")],
+                [
+                    InlineKeyboardButton(
+                        "Save mapping and render",
+                        callback_data=f"save_render:{pending.job_id}",
+                    )
+                ],
+                [
+                    InlineKeyboardButton("Edit mapping", callback_data=f"edit:{pending.job_id}"),
+                    InlineKeyboardButton("Saved mappings", callback_data=f"maps:{pending.job_id}"),
+                ],
+                [InlineKeyboardButton("Cancel", callback_data=f"cancel:{pending.job_id}")],
+            ]
+        )
+
+    def _saved_mapping_keyboard(self, pending: PendingJob | None) -> Any | None:
+        if InlineKeyboardButton is None or InlineKeyboardMarkup is None or pending is None:
+            return None
+        rows = [
+            [
+                InlineKeyboardButton(
+                    profile.name[:54],
+                    callback_data=f"map:{_callback_token(profile.id)}",
+                )
+            ]
+            for profile in self.registry.list_profiles()[:20]
+        ]
+        rows.append(
+            [
+                InlineKeyboardButton(
+                    "Back to suggested mapping",
+                    callback_data=f"back:{pending.job_id}",
+                )
+            ]
+        )
+        return InlineKeyboardMarkup(rows)
+
+    def _role_keyboard(self, pending: PendingJob) -> Any | None:
+        if InlineKeyboardButton is None or InlineKeyboardMarkup is None:
+            return None
+        rows = [
+            [
+                InlineKeyboardButton("reference", callback_data="role:reference"),
+                InlineKeyboardButton("phrase", callback_data="role:phrase"),
+            ],
+            [
+                InlineKeyboardButton("words", callback_data="role:words"),
+                InlineKeyboardButton("morphemes", callback_data="role:morphemes"),
+            ],
+            [
+                InlineKeyboardButton("gloss", callback_data="role:gloss"),
+                InlineKeyboardButton("translation", callback_data="role:translation"),
+            ],
+            [
+                InlineKeyboardButton(
+                    "Back to suggested mapping",
+                    callback_data=f"back:{pending.job_id}",
+                )
+            ],
+        ]
+        return InlineKeyboardMarkup(rows)
+
+    def _tier_keyboard(self, pending: PendingJob, role: str) -> Any | None:
+        if InlineKeyboardButton is None or InlineKeyboardMarkup is None:
+            return None
+        raw = self.parser.parse(Path(pending.eaf_path))
+        rows = [
+            [
+                InlineKeyboardButton(
+                    tier_id[:58],
+                    callback_data=f"set:{role}:{_callback_token(tier_id)}",
+                )
+            ]
+            for tier_id in raw.tier_ids()[:30]
+        ]
+        rows.append([InlineKeyboardButton(f"Clear {role}", callback_data=f"clear:{role}")])
+        rows.append([InlineKeyboardButton("Back to roles", callback_data=f"edit:{pending.job_id}")])
+        return InlineKeyboardMarkup(rows)
+
+    def _publication_keyboard(self, entries: list[Any]) -> Any | None:
+        if InlineKeyboardButton is None or InlineKeyboardMarkup is None:
+            return None
+        if not entries:
+            return InlineKeyboardMarkup([[InlineKeyboardButton("Refresh", callback_data="pubs")]])
+        rows = [
+            [
+                InlineKeyboardButton(
+                    f"Remove: {entry.title}"[:58],
+                    callback_data=f"rm:{_callback_token(entry.slug)}",
+                )
+            ]
+            for entry in entries[:20]
+        ]
+        rows.append([InlineKeyboardButton("Refresh", callback_data="pubs")])
+        return InlineKeyboardMarkup(rows)
+
+    def _remove_confirm_keyboard(self, slug: str) -> Any | None:
+        if InlineKeyboardButton is None or InlineKeyboardMarkup is None:
+            return None
+        token = _callback_token(slug)
+        return InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("Yes, remove it", callback_data=f"rmok:{token}")],
+                [InlineKeyboardButton("Keep it", callback_data=f"rmno:{token}")],
+            ]
+        )
+
+    def _rendered_publication_keyboard(self, slug: str | None) -> Any | None:
+        if InlineKeyboardButton is None or InlineKeyboardMarkup is None:
+            return None
+        rows: list[list[Any]] = []
+        if slug:
+            entry = self._publication_by_slug(slug)
+            if entry and entry.url:
+                rows.append([InlineKeyboardButton("Open HTML", url=entry.url)])
+            rows.append(
+                [
+                    InlineKeyboardButton(
+                        "Remove from web page",
+                        callback_data=f"rm:{_callback_token(slug)}",
+                    )
+                ]
+            )
+        rows.append([InlineKeyboardButton("Manage web page", callback_data="pubs")])
+        return InlineKeyboardMarkup(rows)
+
+    def _pending_for_callback(self, chat_id: int, job_id: str) -> PendingJob | None:
+        pending = self._load_pending(chat_id)
+        if pending is None or pending.job_id != job_id:
+            return None
+        return pending
+
+    def _default_mapping_name(self, pending: PendingJob) -> str:
+        return Path(pending.source_name).stem.replace("_", " ").strip() or "Telegram mapping"
+
+    def _set_pending_role(self, pending: PendingJob, role: str, tier_id: str | None) -> None:
+        payload = pending.mapping.model_dump()
+        payload[role] = tier_id
+        pending.mapping = TierMapping.model_validate(payload)
+        pending.registry_profile_id = None
+
+    def _tier_id_for_token(self, raw: RawEafDocument, token: str) -> str | None:
+        for tier_id in raw.tier_ids():
+            if _callback_token(tier_id) == token:
+                return tier_id
+        return None
+
+    def _publications(self) -> list[Any]:
+        return discover_publications(
+            self.settings.pages_dir,
+            repo_root=self.settings.repo_root,
+            base_url=self._pages_base_url(),
+        )
+
+    def _publication_by_slug(self, slug: str) -> Any | None:
+        for entry in self._publications():
+            if entry.slug == slug:
+                return entry
+        return None
+
+    def _publication_for_token(self, token: str) -> Any | None:
+        for entry in self._publications():
+            if _callback_token(entry.slug) == token:
+                return entry
+        return None
+
+    def _profile_for_token(self, token: str) -> MappingProfile | None:
+        for profile in self.registry.list_profiles():
+            if _callback_token(profile.id) == token:
+                return profile
+        return None
+
+    def _publication_list_text(self, entries: list[Any]) -> str:
+        if not entries:
+            return "No web publications are currently listed."
+        lines = ["Web publications:"]
+        for index, entry in enumerate(entries[:20], start=1):
+            target = entry.url or str(entry.html_path)
+            lines.append(f"{index}. {entry.title}\n   {target}")
+        lines.append("\nTap a Remove button to take an item off the public web page.")
+        return "\n".join(lines)
+
+    async def _remove_publication(self, slug: str) -> str:
+        try:
+            await asyncio.to_thread(
+                remove_github_publication,
+                self.settings.pages_dir,
+                slug,
+                repo_root=self.settings.repo_root,
+                pages_base_url=self._pages_base_url(),
+            )
+        except Exception as exc:  # noqa: BLE001 - show bot admin a useful failure.
+            return f"Could not remove {slug}:\n{exc}"
+
+        pushed = False
+        push_error: str | None = None
+        if self.settings.auto_git_push:
+            try:
+                pushed = await asyncio.to_thread(
+                    commit_and_push_paths,
+                    self.settings.repo_root,
+                    [self.settings.pages_dir, self.settings.repo_root / "index.html"],
+                    message=f"Remove publication {slug}",
+                    remote=self.settings.remote,
+                )
+            except Exception as exc:  # noqa: BLE001
+                push_error = str(exc) or exc.__class__.__name__
+
+        lines = [f"Removed {slug} from the web page."]
+        if self.settings.auto_git_push:
+            lines.append("GitHub Pages push: done" if pushed else "GitHub Pages push: no changes")
+        else:
+            lines.append("GitHub Pages push is disabled, so commit and push from the server.")
+        if push_error:
+            lines.append(f"GitHub push failed: {push_error}")
+        return "\n".join(lines)
 
     def _make_pending(
         self,
@@ -455,7 +906,7 @@ class ElanPrettyTelegramBot:
     def _suggestion_text(self, raw: RawEafDocument, pending: PendingJob) -> str:
         detected = suggest_tier_mapping(raw)
         lines = [
-            f"Got `{pending.source_name}`.",
+            f"Got {pending.source_name}.",
             "",
             "Suggested mapping:",
             self._format_mapping(pending.mapping),
@@ -474,9 +925,9 @@ class ElanPrettyTelegramBot:
         lines.extend(
             [
                 "",
-                "Reply `ok` to render.",
-                "Reply `ok save Name` to render and remember this mapping.",
-                "Or correct it with pairs like `gloss=ge@A translation=ft@A`.",
+                "Use the buttons below to render, save, or edit the mapping.",
+                "Typing corrections still works when needed, for example:",
+                "gloss=ge@A translation=ft@A",
                 "",
                 "Note: GitHub Pages output is public.",
             ]
@@ -540,10 +991,10 @@ class ElanPrettyTelegramBot:
         await self._reply(update, "This bot is private.")
         return False
 
-    async def _reply(self, update: Update, text: str) -> None:
+    async def _reply(self, update: Update, text: str, reply_markup: Any | None = None) -> None:
         message = update.effective_message
         if message is not None:
-            await message.reply_text(text)
+            await message.reply_text(text, reply_markup=reply_markup)
 
     def _chat_id(self, update: Update) -> int | None:
         chat = update.effective_chat
@@ -551,11 +1002,9 @@ class ElanPrettyTelegramBot:
 
     def _help_text(self) -> str:
         return (
-            "Send me an ELAN `.eaf` file. I will suggest a tier mapping, then you can:\n\n"
-            "- reply `ok` to render HTML/PDF\n"
-            "- reply `ok save Name` to render and save the mapping\n"
-            "- reply with corrections like `words=wd@A morphemes=mb@A gloss=ge@A`\n"
-            "- use `/mappings` and `/use mapping-id` for saved profiles\n\n"
+            "Send me an ELAN .eaf file. I will suggest a tier mapping, then you can use buttons "
+            "to render, save the mapping, edit tiers, or choose a saved mapping.\n\n"
+            "You can also use /publications to remove items from the public web page.\n\n"
             "When GitHub publishing is enabled on the server, the HTML link I return is public."
         )
 
@@ -584,6 +1033,10 @@ def _allowed_user_ids(value: str | None) -> set[int] | None:
             continue
         ids.add(int(item))
     return ids
+
+
+def _callback_token(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()[:12]
 
 
 def main() -> None:

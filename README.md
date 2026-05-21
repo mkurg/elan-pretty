@@ -216,8 +216,9 @@ The bot flow is:
 
 1. user sends an `.eaf` file
 2. bot suggests or reuses a tier mapping
-3. user replies `ok`, `ok save Name`, or corrections like `gloss=ge@A`
+3. user taps buttons to render, save the mapping, edit roles, or choose a saved mapping
 4. bot renders HTML/JSON/PDF and can push the GitHub Pages output
+5. `/publications` lets the bot remove items from the public web page
 
 See [docs/aws_ec2_telegram.md](docs/aws_ec2_telegram.md) for EC2 deployment.
 

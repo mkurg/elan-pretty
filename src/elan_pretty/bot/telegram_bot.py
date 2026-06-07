@@ -7,7 +7,7 @@ import re
 import traceback
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 from uuid import uuid4
 
 from pydantic import BaseModel, Field
@@ -20,6 +20,7 @@ from elan_pretty.publishing import (
     commit_and_push_paths,
     infer_pages_base_url,
     remove_github_publication,
+    remove_site_publication,
     render_eaf_publication,
 )
 from elan_pretty.raw import RawEafDocument
@@ -70,6 +71,7 @@ class BotSettings(BaseModel):
     mapping_dir: Path
     pages_dir: Path
     pages_base_url: str | None = None
+    publish_mode: Literal["local", "github"] = "local"
     remote: str = "origin"
     pdf_backend: str = "auto"
     auto_render: bool = False
@@ -95,19 +97,27 @@ class BotSettings(BaseModel):
             repo_root / "published",
             repo_root,
         )
+        auto_git_push = _env_bool("ELAN_PRETTY_AUTO_GIT_PUSH", default=False)
+        publish_mode = os.environ.get("ELAN_PRETTY_PUBLISH_MODE")
+        if publish_mode is None:
+            publish_mode = "github" if auto_git_push else "local"
         return cls(
             repo_root=repo_root,
             work_dir=work_dir,
             mapping_dir=mapping_dir,
             pages_dir=pages_dir,
-            pages_base_url=os.environ.get("ELAN_PRETTY_PAGES_BASE_URL"),
+            pages_base_url=(
+                os.environ.get("ELAN_PRETTY_PUBLIC_BASE_URL")
+                or os.environ.get("ELAN_PRETTY_PAGES_BASE_URL")
+            ),
+            publish_mode=publish_mode,
             remote=os.environ.get("ELAN_PRETTY_GIT_REMOTE", "origin"),
             pdf_backend=os.environ.get("ELAN_PRETTY_PDF_BACKEND", "auto"),
             auto_render=_env_bool("ELAN_PRETTY_AUTO_RENDER", default=False),
             auto_render_confidence=float(
                 os.environ.get("ELAN_PRETTY_AUTO_RENDER_CONFIDENCE", "0.92")
             ),
-            auto_git_push=_env_bool("ELAN_PRETTY_AUTO_GIT_PUSH", default=False),
+            auto_git_push=auto_git_push,
             allowed_user_ids=_allowed_user_ids(os.environ.get("TELEGRAM_ALLOWED_USER_IDS")),
         )
 
@@ -577,7 +587,8 @@ class ElanPrettyTelegramBot:
             saved_profile = self.registry.save(save_name, config, raw=raw, overwrite=True)
 
         slug = f"{safe_slug(Path(pending.source_name).stem)}-{pending.job_id}"
-        pages_base_url = self._pages_base_url()
+        github_pages = self._uses_github_pages()
+        public_base_url = self._publication_base_url()
 
         try:
             rendered = await asyncio.to_thread(
@@ -587,9 +598,11 @@ class ElanPrettyTelegramBot:
                 config,
                 pdf=True,
                 pdf_backend=self.settings.pdf_backend,
-                github_pages=True,
-                repo_root=self.settings.repo_root,
-                pages_base_url=pages_base_url,
+                github_pages=github_pages,
+                static_site=not github_pages,
+                repo_root=self.settings.repo_root if github_pages else None,
+                pages_base_url=public_base_url if github_pages else None,
+                public_base_url=public_base_url if not github_pages else None,
                 slug=slug,
             )
         except Exception as exc:  # noqa: BLE001 - user needs actionable bot feedback.
@@ -600,7 +613,7 @@ class ElanPrettyTelegramBot:
 
         pushed = False
         push_error: str | None = None
-        if self.settings.auto_git_push:
+        if self._should_git_push():
             commit_paths = [self.settings.pages_dir, self.settings.repo_root / "index.html"]
             if saved_profile is not None:
                 commit_paths.append(self.settings.mapping_dir)
@@ -620,10 +633,11 @@ class ElanPrettyTelegramBot:
             lines.append(f"Saved mapping: {saved_profile.id}")
         if rendered.public_url:
             lines.append(f"HTML: {rendered.public_url}")
-            lines.append(GITHUB_PAGES_DELAY_NOTE)
+            if github_pages:
+                lines.append(GITHUB_PAGES_DELAY_NOTE)
         else:
             lines.append(f"HTML path: {rendered.html_path}")
-        if self.settings.auto_git_push:
+        if self._should_git_push():
             lines.append("GitHub Pages push: done" if pushed else "GitHub Pages push: no changes")
         if push_error:
             lines.append(f"GitHub push failed: {push_error}")
@@ -824,10 +838,12 @@ class ElanPrettyTelegramBot:
         return None
 
     def _publications(self) -> list[Any]:
+        url_root = self._publication_url_root()
         return discover_publications(
             self.settings.pages_dir,
-            repo_root=self.settings.repo_root,
-            base_url=self._pages_base_url(),
+            repo_root=self.settings.repo_root if self._uses_github_pages() else None,
+            url_root=url_root,
+            base_url=self._publication_base_url(),
         )
 
     def _publication_by_slug(self, slug: str) -> Any | None:
@@ -860,19 +876,28 @@ class ElanPrettyTelegramBot:
 
     async def _remove_publication(self, slug: str) -> str:
         try:
-            await asyncio.to_thread(
-                remove_github_publication,
-                self.settings.pages_dir,
-                slug,
-                repo_root=self.settings.repo_root,
-                pages_base_url=self._pages_base_url(),
-            )
+            if self._uses_github_pages():
+                await asyncio.to_thread(
+                    remove_github_publication,
+                    self.settings.pages_dir,
+                    slug,
+                    repo_root=self.settings.repo_root,
+                    pages_base_url=self._publication_base_url(),
+                )
+            else:
+                await asyncio.to_thread(
+                    remove_site_publication,
+                    self.settings.pages_dir,
+                    slug,
+                    url_root=self.settings.pages_dir,
+                    base_url=self._publication_base_url(),
+                )
         except Exception as exc:  # noqa: BLE001 - show bot admin a useful failure.
             return f"Could not remove {slug}:\n{exc}"
 
         pushed = False
         push_error: str | None = None
-        if self.settings.auto_git_push:
+        if self._should_git_push():
             try:
                 pushed = await asyncio.to_thread(
                     commit_and_push_paths,
@@ -885,10 +910,8 @@ class ElanPrettyTelegramBot:
                 push_error = str(exc) or exc.__class__.__name__
 
         lines = [f"Removed {slug} from the web page."]
-        if self.settings.auto_git_push:
+        if self._should_git_push():
             lines.append("GitHub Pages push: done" if pushed else "GitHub Pages push: no changes")
-        else:
-            lines.append("GitHub Pages push is disabled, so commit and push from the server.")
         if push_error:
             lines.append(f"GitHub push failed: {push_error}")
         return "\n".join(lines)
@@ -957,7 +980,7 @@ class ElanPrettyTelegramBot:
                 "Typing corrections still works when needed, for example:",
                 "gloss=ge@A translation=ft@A",
                 "",
-                "Note: GitHub Pages output is public.",
+                "Note: web output is public.",
             ]
         )
         return "\n".join(lines)
@@ -1005,9 +1028,20 @@ class ElanPrettyTelegramBot:
             encoding="utf-8",
         )
 
-    def _pages_base_url(self) -> str | None:
+    def _uses_github_pages(self) -> bool:
+        return self.settings.publish_mode == "github"
+
+    def _should_git_push(self) -> bool:
+        return self._uses_github_pages() and self.settings.auto_git_push
+
+    def _publication_url_root(self) -> Path:
+        return self.settings.repo_root if self._uses_github_pages() else self.settings.pages_dir
+
+    def _publication_base_url(self) -> str | None:
         if self.settings.pages_base_url:
             return self.settings.pages_base_url
+        if not self._uses_github_pages():
+            return None
         try:
             return infer_pages_base_url(self.settings.repo_root, self.settings.remote)
         except Exception:  # noqa: BLE001 - bot can still render local artifacts.
@@ -1038,12 +1072,15 @@ class ElanPrettyTelegramBot:
             "to render, save the mapping, edit tiers, or choose a saved mapping.\n\n"
             f"Public page:\n{self._publications_index_url()}\n\n"
             "You can also use /publications to remove items from the public web page.\n\n"
-            "When GitHub publishing is enabled on the server, the HTML link I return is public."
+            "When public web publishing is configured on the server, "
+            "the HTML link I return is public."
         )
 
     def _publications_index_url(self) -> str:
-        base_url = self._pages_base_url()
-        if base_url:
+        base_url = self._publication_base_url()
+        if base_url and not self._uses_github_pages():
+            return f"{base_url.rstrip('/')}/"
+        if base_url and self._uses_github_pages():
             try:
                 relative = self.settings.pages_dir.resolve().relative_to(
                     self.settings.repo_root.resolve()
@@ -1051,7 +1088,9 @@ class ElanPrettyTelegramBot:
             except ValueError:
                 return base_url
             return f"{base_url.rstrip('/')}/{relative.as_posix().strip('/')}/"
-        return "https://mkurg.github.io/elan-pretty/published/"
+        if self._uses_github_pages():
+            return "https://mkurg.github.io/elan-pretty/published/"
+        return str(self.settings.pages_dir)
 
 
 def _resolve_path(value: str | None, default: Path, repo_root: Path) -> Path:

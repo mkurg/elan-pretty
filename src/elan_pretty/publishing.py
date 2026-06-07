@@ -49,8 +49,10 @@ def render_eaf_publication(
     pdf: bool = False,
     pdf_backend: str = "auto",
     github_pages: bool = False,
+    static_site: bool = False,
     repo_root: Path | None = None,
     pages_base_url: str | None = None,
+    public_base_url: str | None = None,
     slug: str | None = None,
 ) -> RenderedPublication:
     raw = EafParser().parse(eaf_path)
@@ -63,8 +65,10 @@ def render_eaf_publication(
         pdf=pdf,
         pdf_backend=pdf_backend,
         github_pages=github_pages,
+        static_site=static_site,
         repo_root=repo_root,
         pages_base_url=pages_base_url,
+        public_base_url=public_base_url,
         slug=slug,
     )
 
@@ -78,14 +82,17 @@ def write_document_publication(
     pdf: bool = False,
     pdf_backend: str = "auto",
     github_pages: bool = False,
+    static_site: bool = False,
     repo_root: Path | None = None,
     pages_base_url: str | None = None,
+    public_base_url: str | None = None,
     slug: str | None = None,
 ) -> RenderedPublication:
     renderer = HTMLRenderer()
     stem = safe_slug(slug or source_stem)
-    render_dir = output_dir / stem if github_pages else output_dir
-    html_stem = "index" if github_pages else stem
+    as_publication_site = github_pages or static_site
+    render_dir = output_dir / stem if as_publication_site else output_dir
+    html_stem = "index" if as_publication_site else stem
 
     render_dir.mkdir(parents=True, exist_ok=True)
     json_path = render_dir / f"{stem}.json"
@@ -101,10 +108,12 @@ def write_document_publication(
     public_url: str | None = None
     index_path: Path | None = None
     root_index_path: Path | None = None
-    if github_pages:
+    if as_publication_site:
+        url_root = repo_root if github_pages else output_dir
+        base_url = pages_base_url if github_pages else public_base_url
         public_url = (
-            public_url_for_path(repo_root, render_dir, pages_base_url)
-            if repo_root and pages_base_url
+            public_url_for_path(url_root, render_dir, base_url)
+            if url_root and base_url
             else None
         )
         publication = PublicationEntry(
@@ -117,8 +126,9 @@ def write_document_publication(
         )
         existing = discover_publications(
             output_dir,
-            repo_root=repo_root,
-            base_url=pages_base_url,
+            repo_root=repo_root if github_pages else None,
+            url_root=url_root,
+            base_url=base_url,
             exclude_slugs={stem},
         )
         index_path = write_publication_index(output_dir, [*existing, publication])
@@ -138,6 +148,24 @@ def write_document_publication(
     )
 
 
+def remove_site_publication(
+    output_dir: Path,
+    slug: str,
+    *,
+    url_root: Path | None = None,
+    base_url: str | None = None,
+) -> RemovedPublication:
+    """Remove one static publication directory and rebuild the site index."""
+
+    return _remove_publication(
+        output_dir,
+        slug,
+        url_root=url_root,
+        base_url=base_url,
+        root_redirect_dir=None,
+    )
+
+
 def remove_github_publication(
     output_dir: Path,
     slug: str,
@@ -147,6 +175,23 @@ def remove_github_publication(
 ) -> RemovedPublication:
     """Remove one GitHub Pages publication directory and rebuild the site index."""
 
+    return _remove_publication(
+        output_dir,
+        slug,
+        url_root=repo_root,
+        base_url=pages_base_url,
+        root_redirect_dir=repo_root,
+    )
+
+
+def _remove_publication(
+    output_dir: Path,
+    slug: str,
+    *,
+    url_root: Path | None,
+    base_url: str | None,
+    root_redirect_dir: Path | None,
+) -> RemovedPublication:
     if not slug or slug != Path(slug).name:
         msg = f"Invalid publication slug: {slug!r}"
         raise ValueError(msg)
@@ -161,12 +206,12 @@ def remove_github_publication(
         raise ValueError(msg)
 
     shutil.rmtree(publication_dir)
-    remaining = discover_publications(output_dir, repo_root=repo_root, base_url=pages_base_url)
+    remaining = discover_publications(output_dir, url_root=url_root, base_url=base_url)
     index_path = write_publication_index(output_dir, remaining)
     root_index_path: Path | None = None
-    if repo_root is not None:
-        target = output_dir.resolve().relative_to(repo_root.resolve()).as_posix() + "/"
-        root_index_path = write_root_redirect(repo_root, target)
+    if root_redirect_dir is not None:
+        target = output_dir.resolve().relative_to(root_redirect_dir.resolve()).as_posix() + "/"
+        root_index_path = write_root_redirect(root_redirect_dir, target)
     return RemovedPublication(
         slug=slug,
         removed_path=publication_dir,

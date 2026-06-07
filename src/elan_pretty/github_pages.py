@@ -40,6 +40,8 @@ def remote_to_pages_base_url(remote_url: str) -> str | None:
 
 
 def public_url_for_path(repo_root: Path, path: Path, base_url: str) -> str:
+    """Build a public URL for a path below a published URL root."""
+
     relative = path.resolve().relative_to(repo_root.resolve())
     quoted = "/".join(quote(part) for part in relative.parts)
     if quoted:
@@ -121,6 +123,7 @@ def discover_publications(
     site_root: Path,
     *,
     repo_root: Path | None = None,
+    url_root: Path | None = None,
     base_url: str | None = None,
     exclude_slugs: set[str] | None = None,
 ) -> list[PublicationEntry]:
@@ -148,7 +151,8 @@ def discover_publications(
 
         pdf_candidates = sorted(directory.glob("*.pdf"))
         pdf_path = pdf_candidates[0] if pdf_candidates else None
-        url = public_url_for_path(repo_root, directory, base_url) if repo_root and base_url else None
+        public_root = url_root or repo_root
+        url = public_url_for_path(public_root, directory, base_url) if public_root and base_url else None
         entries.append(
             PublicationEntry(
                 title=title,

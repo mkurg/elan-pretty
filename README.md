@@ -156,9 +156,43 @@ Useful options:
 - `--theme light|dark|system`
 - `--title "My Text"`
 - `--inspect-tiers`
+- `--static-site`
+- `--public-base-url https://example.org/published/`
 
 `INPUT` may be one `.eaf` file or a directory. Directories are searched
 recursively for `.eaf` files.
+
+## Static Site Publishing
+
+For a production server such as Hetzner, render directly into a directory served
+by nginx:
+
+```bash
+python main.py input.eaf /var/www/elan-pretty/published \
+  --config tiers.yaml \
+  --static-site \
+  --public-base-url https://elan.example.org/published/ \
+  --pdf
+```
+
+This writes:
+
+- `/var/www/elan-pretty/published/index.html`
+- `/var/www/elan-pretty/published/<document-slug>/index.html`
+- `/var/www/elan-pretty/published/<document-slug>/<document-slug>.json`
+- `/var/www/elan-pretty/published/<document-slug>/<document-slug>.pdf`
+
+The Telegram bot uses the same mode when configured with:
+
+```bash
+export ELAN_PRETTY_PUBLISH_MODE=local
+export ELAN_PRETTY_PAGES_DIR=/var/www/elan-pretty/published
+export ELAN_PRETTY_PUBLIC_BASE_URL=https://elan.example.org/published/
+export ELAN_PRETTY_AUTO_GIT_PUSH=false
+```
+
+This is the recommended deployment model for a self-hosted bot and future web
+interface. GitHub remains the code repository, not the publication store.
 
 ## GitHub Pages Publishing
 
@@ -234,10 +268,12 @@ The bot flow is:
 1. user sends an `.eaf` file
 2. bot suggests or reuses a tier mapping
 3. user taps buttons to render, save the mapping, edit roles, or choose a saved mapping
-4. bot renders HTML/JSON/PDF and can push the GitHub Pages output
+4. bot renders HTML/JSON/PDF into the configured public site directory
 5. `/publications` lets the bot remove items from the public web page
 
 See [docs/aws_ec2_telegram.md](docs/aws_ec2_telegram.md) for EC2 deployment.
+For self-hosting the public site on Hetzner, see
+[docs/hetzner_static_site.md](docs/hetzner_static_site.md).
 
 ## Robustness Notes
 

@@ -72,10 +72,20 @@ def render(
         "--github-pages",
         help="Render as GitHub Pages publications under OUTPUT_DIR/<slug>/.",
     ),
+    static_site: bool = typer.Option(
+        False,
+        "--static-site",
+        help="Render as static site publications under OUTPUT_DIR/<slug>/ without git.",
+    ),
     pages_base_url: Optional[str] = typer.Option(
         None,
         "--pages-base-url",
         help="Override inferred GitHub Pages base URL.",
+    ),
+    public_base_url: Optional[str] = typer.Option(
+        None,
+        "--public-base-url",
+        help="Public URL where OUTPUT_DIR is served in --static-site mode.",
     ),
     commit_and_push: bool = typer.Option(
         False,
@@ -98,6 +108,8 @@ def render(
     eaf_paths = _resolve_inputs(input_path)
     if not eaf_paths:
         raise typer.BadParameter(f"No .eaf files found at {input_path}")
+    if github_pages and static_site:
+        raise typer.BadParameter("Use either --github-pages or --static-site, not both")
     if commit_and_push and not github_pages:
         raise typer.BadParameter("--commit-and-push requires --github-pages")
 
@@ -105,9 +117,16 @@ def render(
     parser = EafParser()
     renderer = HTMLRenderer()
     repo_root = _repo_root() if github_pages or commit_and_push else None
-    if github_pages and repo_root is not None and not output_dir.resolve().is_relative_to(repo_root.resolve()):
+    if (
+        github_pages
+        and repo_root is not None
+        and not output_dir.resolve().is_relative_to(repo_root.resolve())
+    ):
         raise typer.BadParameter("GitHub Pages OUTPUT_DIR must be inside the git repository")
     base_url = _pages_base_url(repo_root, pages_base_url, remote) if github_pages else None
+    site_base_url = base_url if github_pages else public_base_url
+    url_root = repo_root if github_pages else output_dir
+    publication_site = github_pages or static_site
     publications: list[PublicationEntry] = []
 
     for eaf_path in eaf_paths:
@@ -127,8 +146,8 @@ def render(
 
         document = EafNormalizer(raw, active_config).normalize()
         stem = safe_slug(eaf_path.stem)
-        render_dir = output_dir / stem if github_pages else output_dir
-        html_stem = "index" if github_pages else stem
+        render_dir = output_dir / stem if publication_site else output_dir
+        html_stem = "index" if publication_site else stem
 
         render_dir.mkdir(parents=True, exist_ok=True)
         json_path = render_dir / f"{stem}.json"
@@ -144,8 +163,12 @@ def render(
             render_pdf(html_path, pdf_path, backend=pdf_backend)
             typer.echo(f"Wrote {pdf_path}")
 
-        if github_pages:
-            url = public_url_for_path(repo_root, render_dir, base_url) if repo_root and base_url else None
+        if publication_site:
+            url = (
+                public_url_for_path(url_root, render_dir, site_base_url)
+                if url_root and site_base_url
+                else None
+            )
             if url:
                 typer.echo(f"Public URL: {url}")
             publications.append(
@@ -162,16 +185,17 @@ def render(
         for warning in document.warnings:
             typer.secho(f"warning: {warning}", fg=typer.colors.YELLOW, err=True)
 
-    if github_pages:
+    if publication_site:
         existing_publications = discover_publications(
             output_dir,
-            repo_root=repo_root,
-            base_url=base_url,
+            repo_root=repo_root if github_pages else None,
+            url_root=url_root,
+            base_url=site_base_url,
             exclude_slugs={publication.slug for publication in publications},
         )
         index_path = write_publication_index(output_dir, [*existing_publications, *publications])
         typer.echo(f"Wrote {index_path}")
-        if repo_root is not None:
+        if github_pages and repo_root is not None:
             root_index = write_root_redirect(
                 repo_root,
                 output_dir.resolve().relative_to(repo_root.resolve()).as_posix() + "/",
